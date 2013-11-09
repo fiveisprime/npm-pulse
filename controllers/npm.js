@@ -26,7 +26,11 @@ Npm.prototype.getModule = function(name, fn) {
   , json: true
   };
 
-  return request(opts, fn);
+  return request(opts, function(err, response, body) {
+    if (err) return fn(err);
+    if (response.statusCode !== 200) return fn(new Error(body));
+    fn(null, body);
+  });
 };
 
 //

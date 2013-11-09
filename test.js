@@ -1,5 +1,10 @@
-var controllers = require('./controllers')();
+var controllers = require('./controllers')()
+  , Q           = require('q');
 
-controllers.npm.getModule('modulus', function(err, response, body) {
-  console.log(body);
-});
+Q.nfcall(controllers.npm.getModule, 'modulus')
+  .then(function(meta) {
+    return Q.nfcall(controllers.gitHub.getDataForRepo, meta);
+  })
+  .then(console.log)
+  .fail(console.error)
+  .done();
