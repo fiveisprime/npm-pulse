@@ -35,6 +35,10 @@ module.exports.routes = {
   '/': {
     view: 'home/index'
   },
+  '/:projectName':{
+    controller: 'angular',
+    action: 'redirect'
+  },
   '/api/:projectName': {
     controller: 'projects',
     action: 'get'
