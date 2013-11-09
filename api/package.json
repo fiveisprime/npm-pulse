@@ -1,0 +1,29 @@
+{
+  "name": "nko4-applejacks",
+  "version": "0.0.0",
+  "description": "Applejacks",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:nko4/applejacks.git"
+  },
+  "dependencies": {
+    "nko": "*",
+    "request": "~2.27.0",
+    "q": "~0.9.7",
+    "sails": "0.9.7",
+    "grunt": "0.4.1",
+    "sails-disk": "~0.9.0",
+    "ejs": "0.8.4",
+    "optimist": "0.3.4"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "devDependencies": {
+    "jshint": "~2.3.0"
+  }
+}
