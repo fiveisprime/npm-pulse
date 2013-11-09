@@ -40,8 +40,8 @@ var get = function get(uri) {
 //
 // Get releases for the specified repository.
 //
-var getReleases = function(meta) {
-  return get(util.format('/repos/%s/%s/releases', meta.user, meta.name));
+var getRepo = function(meta) {
+  return get(util.format('/repos/%s/%s', meta.user, meta.name));
 };
 
 //
@@ -70,20 +70,38 @@ var GitHub = function() {
 //
 GitHub.prototype.getRepo = function(module, fn) {
   if (typeof module.repository === 'undefined') return fn(new Error('No repository specified for that module.'));
-  if (module.repository.type !== 'git') return fn(new Error('The specified module is not stored on GitHub.'));
-  if (module.repository.url.indexOf('github') === -1) return fn(new Error('The specified module is not stored on GitHub.'));
+  if (module.repository.type !== 'git' ||
+      module.repository.url.indexOf('github') === -1) return fn(new Error('The specified module is not stored on GitHub.'));
 
-  var meta  = getRepoMeta(module.repository)
-    , data  = {};
+  var meta     = getRepoMeta(module.repository)
+    , data     = {}
+    , versions = Object.keys(module.time);
 
   //
-  // Data from the npm registry.
+  // Attach data from the npm registry.
   //
-  data.time = module.time;
+  data.name = module.name;
+  data.description = module.description;
   data.reportcard = REPORT_CARD_URL + meta.user;
+  data.initial_release = {
+    version: versions[0]
+  , date: module.time[versions[0]]
+  };
+  data.latest_release = {
+    version: versions[versions.length - 1]
+  , date: module.time[versions[versions.length - 1]]
+  };
+  data.versions = module.time;
 
-  getReleases(meta)
-    .then(function(releases) {
+  getRepo(meta)
+    .then(function(repo) {
+      //
+      // Attach data from GitHub.
+      //
+      data.stars = repo.stargazers_count;
+      data.issues = repo.open_issues;
+      data.forks = repo.forks_count;
+
       fn(null, data);
     })
     .fail(function(err) {
