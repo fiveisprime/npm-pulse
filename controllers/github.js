@@ -45,6 +45,13 @@ var getRepo = function(meta) {
 };
 
 //
+// Get contributors array for the specified repository.
+//
+var getContributors = function(meta) {
+  return get(util.format('/repos/%s/%s/stats/contributors', meta.user, meta.name));
+};
+
+//
 // Split the repo object into something usable by the GitHub API.
 //
 var getRepoMeta = function(repo) {
@@ -108,9 +115,16 @@ GitHub.prototype.getRepo = function(module, fn) {
       data.author.username = repo.owner.login;
       data.author.url = repo.owner.html_url;
 
+      return getContributors(meta);
+    })
+    .then(function(contributors) {
+      data.contributors = contributors;
+
       fn(null, data);
     })
     .fail(function(err) {
+      console.error(err.message);
+      console.error(err.stack);
       fn(err);
     })
     .done();

@@ -41,14 +41,24 @@
     </ul>
 
   </div> -->
+
   <hr>
+
   <div class="row">
+
     <div class="span4">
-      <div class="avatar">
-        <img src="{{project.author.avatar_url}}" alt="{{project.author.name}}">
-        <p>{{project.author.name}}</p>
-        <a href="{{project.report_card}}" target="_blank">Report Card</a>
-        <a href="{{project.author.url}}" target="_blank">GitHub</a>
+      <p>Author</p>
+      <img src="{{project.author.avatar_url}}" alt="{{project.author.name}}">
+      <p>{{project.author.name}}</p>
+      <a href="{{project.report_card}}" target="_blank">Report Card</a>
+      <a href="{{project.author.url}}" target="_blank">GitHub</a>
+    </div>
+
+    <div class="span8">
+      <p>{{project.contributors.length}} Contributors</p>
+      <div class="contributor" ng-repeat="contributor in project.contributors">
+        <img src="{{contributor.author.avatar_url}}" alt="{{contributor.author.login}}" title="{{contributor.author.login}}">
+        <a href="{{contributor.author.html_url}}" target="_blank">{{contributor.author.login}}</a>
       </div>
     </div>
   </div>

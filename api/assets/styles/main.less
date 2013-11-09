@@ -1,3 +1,5 @@
+@linkColor      : #008080;
+@linkHoverColor : darken(@linkColor, 10%);
 
 body {
   font-family: "Lato", Helvetica, Arial, sans-serif;
@@ -17,6 +19,18 @@ h1, h2, h3, h4, h5, h6{
 p {
   margin: 0;
   padding: 0;
+}
+
+a {
+  color: @linkColor;
+  text-decoration: none;
+  &:visited {
+    color: @linkColor;
+    text-decoration: underline;
+    outline: 0;
+  }
+  &:hover { color: @linkHoverColor; }
+  &:focus { color: @linkHoverColor; }
 }
 
 hr {
