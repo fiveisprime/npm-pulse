@@ -1,4 +1,4 @@
-SRC = server.js
+SRC = $(wildcard **/*.js)
 
 lint: $(SRC)
 	@node node_modules/.bin/jshint $^ \

@@ -36,6 +36,16 @@ var get = function get(uri) {
   return deferred.promise;
 };
 
+//
+// Get releases for the specified repository.
+//
+var getReleases = function(meta) {
+  return get(util.format('/repos/%s/%s/releases', meta.user, meta.name));
+};
+
+//
+// Split the repo object into something usable by the GitHub API.
+//
 var getRepoMeta = function(repo) {
   if (!repo || repo.length === 0) return '';
 
@@ -45,7 +55,7 @@ var getRepoMeta = function(repo) {
     user: bits[3]
   , name: bits[4].replace('.git', '')
   };
-}
+};
 
 //
 // GitHub constructor used to work with repositories.
@@ -59,34 +69,19 @@ var GitHub = function() {
 //
 GitHub.prototype.getRepo = function(module, fn) {
   if (typeof module.repository === 'undefined') return fn(new Error('No repository specified for that module.'));
-  if (module.repository.type !== 'git') return fn(new Error('The specified module is not stored on GitHub.'))
-  if (module.repository.url.indexOf('github') === -1) return fn(new Error('The specified module is not stored on GitHub.'))
+  if (module.repository.type !== 'git') return fn(new Error('The specified module is not stored on GitHub.'));
+  if (module.repository.url.indexOf('github') === -1) return fn(new Error('The specified module is not stored on GitHub.'));
 
   var meta  = getRepoMeta(module.repository)
-    , data  = {}
-    , _this = this;
+    , data  = {};
 
-  Q.nfcall(this.getReleases, meta)
+  getReleases(meta)
     .then(function(releases) {
       data.releases = releases;
       fn(null, data);
     })
     .fail(function(err) {
       console.error(err.stack);
-      fn(err);
-    })
-    .done();
-};
-
-//
-// Get releases for the specified repository.
-//
-GitHub.prototype.getReleases = function(meta, fn) {
-  get(util.format('/repos/%s/%s/releases', meta.user, meta.name))
-    .then(function(releases) {
-      fn(null, releases);
-    })
-    .fail(function(err) {
       fn(err);
     })
     .done();
