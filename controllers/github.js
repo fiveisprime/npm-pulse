@@ -10,7 +10,8 @@ var request = require('request')
   , Q       = require('q');
 
 const GITHUB_ROOT_URL = 'https://api.github.com';
-const UA_STRING = 'applejacks/npm-pulse';
+const REPORT_CARD_URL = 'http://osrc.dfm.io/';
+const UA_STRING       = 'applejacks/npm-pulse';
 
 //
 // Helper for getting data from GitHub.
@@ -75,9 +76,14 @@ GitHub.prototype.getRepo = function(module, fn) {
   var meta  = getRepoMeta(module.repository)
     , data  = {};
 
+  //
+  // Data from the npm registry.
+  //
+  data.time = module.time;
+  data.reportcard = REPORT_CARD_URL + meta.user;
+
   getReleases(meta)
     .then(function(releases) {
-      data.releases = releases;
       fn(null, data);
     })
     .fail(function(err) {
