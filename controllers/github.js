@@ -37,6 +37,8 @@ var get = function get(uri) {
 };
 
 var getRepoMeta = function(repo) {
+  if (!repo || repo.length === 0) return '';
+
   var bits = repo.url.split('/');
 
   return {
