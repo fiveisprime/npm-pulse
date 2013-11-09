@@ -58,9 +58,10 @@
       <p>{{project.contributors.length}} Contributors</p>
       <div class="contributor" ng-repeat="contributor in project.contributors">
         <img src="{{contributor.author.avatar_url}}" alt="{{contributor.author.login}}" title="{{contributor.author.login}}">
-        <a href="{{contributor.author.html_url}}" target="_blank">{{contributor.author.login}}</a>
+        <p><a href="{{contributor.author.html_url}}" target="_blank">{{contributor.author.login}}</a></p>
       </div>
     </div>
+
   </div>
 
 </article>
