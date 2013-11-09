@@ -91,6 +91,9 @@ GitHub.prototype.getRepo = function(module, fn) {
     version: versions[versions.length - 1]
   , date: module.time[versions[versions.length - 1]]
   };
+  data.author = {
+    name: module.author.name
+  };
   data.versions = module.time;
 
   getRepo(meta)
@@ -101,6 +104,9 @@ GitHub.prototype.getRepo = function(module, fn) {
       data.stars = repo.stargazers_count;
       data.issues = repo.open_issues;
       data.forks = repo.forks_count;
+      data.author.avatar_url = repo.owner.avatar_url;
+      data.author.username = repo.owner.login;
+      data.author.url = repo.owner.html_url;
 
       fn(null, data);
     })

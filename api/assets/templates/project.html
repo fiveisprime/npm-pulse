@@ -1,6 +1,6 @@
 <div class="search">
   <form ng-submit="getProject()">
-    <input type="text" ng-model="projectName"  size="30"
+    <input type="text" ng-model="projectName" size="30"
            placeholder="Search for npm project">
     <button type="submit">Search</button>
   </form>
@@ -15,9 +15,9 @@
     </div>
     <div class="span12">
       <div class="project-github-data">
-        <span class="project-icon"><i class="fa fa-star"></i> {{project.stars}}</span> |
-        <span class="project-icon"><i class="fa fa-exclamation-circle"></i> {{project.issues}}</span> |
-        <span class="project-icon"><i class="fa fa-code-fork"></i> {{project.forks}}</span> |
+        <span class="project-icon" title="GitHub stars"><i class="fa fa-star"></i> {{project.stars}}</span> |
+        <span class="project-icon" title="Open issues"><i class="fa fa-exclamation-circle"></i> {{project.issues}}</span> |
+        <span class="project-icon" title="Total forks"><i class="fa fa-code-fork"></i> {{project.forks}}</span> |
       </div>
     </div>
   </div>
@@ -29,18 +29,28 @@
     </div>
     <div class="span6">
       <div class="project-meta">
-        <p><a href="{{project.report_card}} ">Report Card</a> </p>
-        <p>Latest release - {{project.latest_release.version}} </p>
-        <p>Initial release - {{project.initial_release.version}} </p>
+        <p><a href="{{project.report_card}}" target="_blank">Report Card</a></p>
+        <p>Latest release - {{project.latest_release.version}}</p>
+        <p>Initial release - {{project.initial_release.version}}</p>
       </div>
     </div>
   </div>
   <!-- <div class="row">
     <p>All Versions</p>
     <ul id="version-list">
-      <li ng-repeat="(version, date) in project.versions">{{version}}</li>  
+      <li ng-repeat="(version, date) in project.versions">{{version}}</li>
     </ul>
 
   </div> -->
-  
+  <hr>
+  <div class="row">
+    <div class="span4">
+      <div class="avatar">
+        <img src="{{project.author.avatar_url}}" alt="{{project.author.name}}">
+        <p>{{project.author.name}}</p>
+        <a href="{{project.author.url}}" target="_blank">{{project.author.username}}</a>
+      </div>
+    </div>
+  </div>
+
 </article>
