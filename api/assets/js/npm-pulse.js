@@ -45,7 +45,6 @@ function ProjectCtrl($scope, $location, $routeParams, Projects) {
 
   Projects.getProject(projectName).then(function(response) {
     $scope.project = response;
-    $scope.$apply();
   });
 
   $scope.getProject = function() {
