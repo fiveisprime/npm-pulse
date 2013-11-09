@@ -29,7 +29,6 @@
     </div>
     <div class="span6">
       <div class="project-meta">
-        <p><a href="{{project.report_card}}" target="_blank">Report Card</a></p>
         <p>Latest release - {{project.latest_release.version}}</p>
         <p>Initial release - {{project.initial_release.version}}</p>
       </div>
@@ -48,7 +47,8 @@
       <div class="avatar">
         <img src="{{project.author.avatar_url}}" alt="{{project.author.name}}">
         <p>{{project.author.name}}</p>
-        <a href="{{project.author.url}}" target="_blank">{{project.author.username}}</a>
+        <a href="{{project.report_card}}" target="_blank">Report Card</a>
+        <a href="{{project.author.url}}" target="_blank">GitHub</a>
       </div>
     </div>
   </div>
