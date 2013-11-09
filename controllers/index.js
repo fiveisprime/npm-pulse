@@ -6,9 +6,13 @@
 //
 
 module.exports = function() {
+  var internals = {};
 
   //
   // Bootstrap the controllers.
   //
-  exports.gitHub = require('./github')();
+  internals.gitHub = require('./github')();
+  internals.npm = require('./npm')();
+
+  return internals;
 };
