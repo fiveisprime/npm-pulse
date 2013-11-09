@@ -57,16 +57,34 @@ var GitHub = function() {
 // Aggregate the data from each endpoint and return the compiled JSON object
 //    for the module object.
 //
-GitHub.prototype.getDataForRepo = function(meta, fn) {
-  if (typeof meta.repository === 'undefined') return fn(new Error('No repository specified for that module.'));
-  if (meta.repository.type !== 'git') return fn(new Error('The specified module is not stored on GitHub.'))
-  if (meta.repository.url.indexOf('github') === -1) return fn(new Error('The specified module is not stored on GitHub.'))
+GitHub.prototype.getRepo = function(module, fn) {
+  if (typeof module.repository === 'undefined') return fn(new Error('No repository specified for that module.'));
+  if (module.repository.type !== 'git') return fn(new Error('The specified module is not stored on GitHub.'))
+  if (module.repository.url.indexOf('github') === -1) return fn(new Error('The specified module is not stored on GitHub.'))
 
-  var repoMeta = getRepoMeta(meta.repository);
+  var meta  = getRepoMeta(module.repository)
+    , data  = {}
+    , _this = this;
 
-  get(util.format('/repos/%s/%s', repoMeta.user, repoMeta.name))
-    .then(function(res) {
-      fn(null, res);
+  Q.nfcall(this.getReleases, meta)
+    .then(function(releases) {
+      data.releases = releases;
+      fn(null, data);
+    })
+    .fail(function(err) {
+      console.error(err.stack);
+      fn(err);
+    })
+    .done();
+};
+
+//
+// Get releases for the specified repository.
+//
+GitHub.prototype.getReleases = function(meta, fn) {
+  get(util.format('/repos/%s/%s/releases', meta.user, meta.name))
+    .then(function(releases) {
+      fn(null, releases);
     })
     .fail(function(err) {
       fn(err);

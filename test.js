@@ -1,10 +1,9 @@
 var controllers = require('./controllers')()
   , Q           = require('q');
 
-Q.nfcall(controllers.npm.getModule, 'modulus')
-  .then(function(meta) {
-    return Q.nfcall(controllers.gitHub.getDataForRepo, meta);
+controllers.npm.getModule('modulus', function(err, moduleMeta) {
+  if (err) throw err;
+  controllers.gitHub.getRepo(moduleMeta, function() {
+    console.log(arguments);
   })
-  .then(console.log.bind(this, 'success:'))
-  .fail(console.error.bind(this, 'failure:'))
-  .done();
+});
