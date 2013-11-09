@@ -29,7 +29,7 @@ var get = function get(uri) {
 
   request(opts, function(err, response, body) {
     if (err) return deferred.reject(err);
-    if (response.statusCode !== 200) return deferred.reject(body);
+    if (response.statusCode !== 200) return deferred.reject(new Error(body.message));
 
     deferred.resolve(body);
   });
@@ -105,7 +105,6 @@ GitHub.prototype.getRepo = function(module, fn) {
       fn(null, data);
     })
     .fail(function(err) {
-      console.error(err.stack);
       fn(err);
     })
     .done();
