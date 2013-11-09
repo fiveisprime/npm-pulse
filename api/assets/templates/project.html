@@ -1,20 +1,46 @@
-<form ng-submit="getProject()">
-  <input type="text" ng-model="projectName"  size="30"
-         placeholder="Search for npm project">
-  <input class="" type="submit" value="Search">
-</form>
-
-<div ng-show="project">
-  <p>{{project.name}}</p>
-  <p>{{project.description}}</p>
-  <p><a href="{{project.report_card}} ">Report Card</a> </p>
-  <p>Latest release: {{project.latest_release.version}} </p>
-  <p>Initial release: {{project.initial_release.version}} </p>
-  <p>All Versions</p>
-  <ul id="version-list">
-    <li ng-repeat="(version, date) in project.versions">{{version}}</li>  
-  </ul>
-  <p>Github stars: {{project.stars}} </p>
-  <p>Github stars: {{project.issues}} </p>
-  <p>Github forks: {{project.forks}} </p>
+<div class="search">
+  <form ng-submit="getProject()">
+    <input type="text" ng-model="projectName"  size="30"
+           placeholder="Search for npm project">
+    <button type="submit">Search</button>
+  </form>
 </div>
+<hr>
+<article ng-show="project" class="project">
+  <div class="row">
+    <div class="span12">
+      <div class="project-name">
+        <h2>{{project.name}}</h2>
+      </div>
+    </div>
+    <div class="span12">
+      <div class="project-github-data">
+        <span class="project-icon"><i class="fa fa-star"></i> {{project.stars}}</span> |
+        <span class="project-icon"><i class="fa fa-exclamation-circle"></i> {{project.issues}}</span> |
+        <span class="project-icon"><i class="fa fa-code-fork"></i> {{project.forks}}</span> |
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span18">
+      <div class="project-description">
+        <p>{{project.description}}</p>
+      </div>
+    </div>
+    <div class="span6">
+      <div class="project-meta">
+        <p><a href="{{project.report_card}} ">Report Card</a> </p>
+        <p>Latest release - {{project.latest_release.version}} </p>
+        <p>Initial release - {{project.initial_release.version}} </p>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="row">
+    <p>All Versions</p>
+    <ul id="version-list">
+      <li ng-repeat="(version, date) in project.versions">{{version}}</li>  
+    </ul>
+
+  </div> -->
+  
+</article>

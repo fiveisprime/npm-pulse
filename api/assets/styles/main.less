@@ -14,6 +14,27 @@ h1, h2, h3, h4, h5, h6{
   color: inherit;
 }
 
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #eee;
+}
+
+button{
+  background: #eee;
+  border: none;
+  height: 50px;
+  padding: 0 20px;
+}
+
+input[type="text"]{
+  height: 44px;
+  box-shadow: none;
+  border: 1px #eee solid;
+  padding-left: 10px;
+}
+
 .container{
   position: relative;
   width: 960px;
@@ -22,15 +43,38 @@ h1, h2, h3, h4, h5, h6{
 
 header{
   text-align: center;
+  .title a{
+    color: #34495e;
+    text-decoration: none;
+  }
 }
 
 #content{
-  text-align: center;
   margin-bottom:20px;
+  .search{
+    text-align: center;
+  }
 }
 
 footer{
 
+}
+
+.project{
+  .project-meta{
+    text-align: right;
+  }
+  .project-github-data{
+    margin-top: 22px;
+    text-align:right;
+    .project-icon{
+      margin: 0 10px;
+      i{
+        margin-left: 4px;
+      }
+    }
+
+  }
 }
 
 #version-list{
