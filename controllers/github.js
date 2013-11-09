@@ -82,7 +82,7 @@ GitHub.prototype.getRepo = function(module, fn) {
   //
   data.name = module.name;
   data.description = module.description;
-  data.reportcard = REPORT_CARD_URL + meta.user;
+  data.report_card = REPORT_CARD_URL + meta.user;
   data.initial_release = {
     version: versions[0]
   , date: module.time[versions[0]]
