@@ -36,8 +36,8 @@ var GitHub = function() {
 // Aggregate the data from each endpoint and return the compiled JSON object
 //    for the module object.
 //
-GitHub.prototype.getDataForRepo = function(moduleSpec, fn) {
-  if (typeof moduleSpec.repo === 'undefined') return fn(new Error('No repository specified for that module.'));
+GitHub.prototype.getDataForRepo = function(meta, fn) {
+  if (typeof meta.repository === 'undefined') return fn(new Error('No repository specified for that module.'));
 };
 
 //

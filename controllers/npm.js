@@ -5,18 +5,33 @@
 //     MIT Licensed
 //
 
+var request = require('request');
+
+const NPM_ROOT_URL = 'http://registry.npmjs.org/';
+
+//
+// npm constructor for working with module data from http://npmjs.org.
+//
+var Npm = function() {
+
+};
+
+//
+// Gets metadata for the specified module.
+//
+Npm.prototype.getModule = function(name, fn) {
+  var opts = {
+    methid: 'GET'
+  , url: NPM_ROOT_URL + name
+  , json: true
+  };
+
+  return request(opts, fn);
+};
+
+//
+// Returns a new npm instance.
+//
 module.exports = function() {
-  //
-  // There needs to be a way to grab module data in a structured format:
-  //
-  //    {
-  //      name: 'module-name'
-  //    , maintainers: ['some person']
-  //    , keywords: ['words']
-  //    , repository: 'git://github.com/user/repo.git'
-  //    , homepage: 'http://example.com/module-name'
-  //    , starredBy: ['maybe']
-  //    , readme: 'stringified readme.. maybe'
-  //    }
-  //
+  return new Npm();
 };
