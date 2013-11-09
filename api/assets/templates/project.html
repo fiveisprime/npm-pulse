@@ -35,5 +35,23 @@
   issues: 2,
   forks: 3 } -->
 
-<p>{{project.name}}</p>
-<p>{{project.description}}</p>
+<form ng-submit="getProject()">
+  <input type="text" ng-model="projectName"  size="30"
+         placeholder="Search for npm project">
+  <input class="" type="submit" value="Search">
+</form>
+
+<div ng-show="project">
+  <p>{{project.name}}</p>
+  <p>{{project.description}}</p>
+  <p><a href="{{project.report_card}} ">Report Card</a> </p>
+  <p>Latest release: {{project.latest_release.version}} </p>
+  <p>Initial release: {{project.initial_release.version}} </p>
+  <p>All Versions</p>
+  <ul>
+    <li ng-repeat="(version, date) in project.versions">{{version}}</li>  
+  </ul>
+  <p>Github stars: {{project.stars}} </p>
+  <p>Github stars: {{project.issues}} </p>
+  <p>Github forks: {{project.forks}} </p>
+</div>
