@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/styles/normalize.css">
     <link rel="stylesheet" href="/styles/grid.css">
     <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/nvd3.min.css">
 
   </head>
 
@@ -29,11 +30,16 @@
       Client-side Javascript
       ========================
 
-      You can import any js files in your `assets` directory as you would 
+      You can import any js files in your `assets` directory as you would
       normally: using <script></script> tags.
 
       Here's an example of importing a few dependencies, in order:
     -->
+    <!-- Bring in the d3 client -->
+    <script type="text/javascript" src="/js/d3.v3.js"></script>
+    <!-- Bring in the nvd3 client -->
+    <script type="text/javascript" src="/js/nv.d3.js"></script>
+
     <!-- Bring in the socket.io client -->
     <script type="text/javascript" src="/js/socket.io.js"></script>
     <!-- then beef it up with some convenience logic for talking to Sails.js -->
@@ -50,7 +56,7 @@
     </script>
 
 
-  
+
 
 
 
