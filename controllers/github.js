@@ -116,8 +116,10 @@ GitHub.prototype.getRepo = function(module, fn) {
       data.author.username = repo.owner.login;
       data.author.url = repo.owner.html_url;
       data.issues_url = path.join(repo.html_url, 'issues');
-      data.forks_url = path.join(repo.html_url, 'fork');
+      data.fork = path.join(repo.html_url, 'fork');
       data.network_url = path.join(repo.html_url, 'network');
+      data.star = path.join(repo.html_url, 'star');
+      data.stargazers = path.join(repo.html_url, 'stargazers');
 
       return getContributors(meta);
     })
