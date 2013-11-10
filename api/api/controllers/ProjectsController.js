@@ -1,5 +1,6 @@
 var controllers = require('./../../../controllers')()
-  , Q           = require('q');
+  , Q           = require('q')
+  , moment      = require('moment');
 
 /**
  * ProjectsController
@@ -19,20 +20,29 @@ var controllers = require('./../../../controllers')()
  */
 
 module.exports = {
-  
+
   /**
    * Action blueprints:
    *    `/projects/get`
    */
    get: function (req, res) {
-    var projectName = req.param("projectName")
+    var projectName = req.param("projectName");
+    var project = null;
+
     Q.nfcall(controllers.npm.getModule, projectName)
     .then(function(moduleMeta) {
       return Q.nfcall(controllers.gitHub.getRepo, moduleMeta);
     })
     .then(function(projectData) {
+      project = projectData;
+      var endDate = new Date();
+      var startDate = moment(endDate).subtract('days', 30).toDate();
+      return Q.nfcall(controllers.npm.getModuleDownloads, projectName, startDate, endDate, false);
+    })
+    .then(function(downloads) {
+      project.downloadsMonth = downloads;
        // Send a JSON response
-      return res.json(projectData);
+      return res.json(project);
     })
     .fail(console.error.bind(console, 'failure:'))
     .done();
@@ -47,5 +57,5 @@ module.exports = {
    */
   _config: {}
 
-  
+
 };
