@@ -27,6 +27,10 @@ var get = function get(uri) {
   , headers: {
       'User-Agent': UA_STRING
     }
+  , qs: {
+      client_id: 'a43f95b2abce7c72fa0d'
+    , client_secret: '771681a8a0c6998e3fa7c90c0a450bac5ffe7edb'
+    }
   };
 
   request(opts, function(err, response, body) {
