@@ -53,6 +53,27 @@ var getContributors = function(meta) {
 };
 
 //
+// Get commit data for the specified repository.
+//
+var getCommits = function(meta) {
+  return get(util.format('/repos/%s/%s/commits', meta.user, meta.name));
+};
+
+//
+// Get the last week of commits.
+//
+var getLastWeekCommits = function(meta, since) {
+  return get(util.format('/repos/%s/%s/commits?since=%s', meta.user, meta.name, since));
+};
+
+//
+// Get all closed issues for the specified repository.
+//
+var getClosedIssues = function(meta) {
+  return get(util.format('/repos/%s/%s/issues?state=closed', meta.user, meta.name));
+};
+
+//
 // Split the repo object into something usable by the GitHub API.
 //
 var getRepoMeta = function(repo) {
@@ -66,9 +87,9 @@ var getRepoMeta = function(repo) {
   };
 };
 
-//
-// Calculate the popularity of the repo based on watchers, stars, forks, downloads
-//
+
+// Calculate popularity based on watchers, stars, forks and downloads.
+
 var calculatePopularity = function(watchers, stars, forks, downloads) {
   var totalActivity = watchers + stars + forks + downloads;
 
@@ -150,9 +171,6 @@ GitHub.prototype.getRepo = function(module, fn) {
 
   getRepo(meta)
     .then(function(repo) {
-      //
-      // Attach data from GitHub.
-      //
       data.stars = repo.stargazers_count;
       data.issues = repo.open_issues;
       data.watchers = repo.watchers_count;
@@ -173,6 +191,29 @@ GitHub.prototype.getRepo = function(module, fn) {
     })
     .then(function(contributors) {
       data.contributors = contributors;
+
+      // Get commit data and attach it to the data object.
+      return getCommits(meta);
+    })
+    .then(function(commits) {
+      data.commits = {};
+      data.commits.total = commits.length;
+      data.commits.most_recent = commits[0].commit.committer.date;
+
+      var today = new Date()
+        , lastWeek = new Date(today.getTime() - (1000 * 60 * 60 * 24 * 7));
+
+      // Get the last week of commit activity.
+      return getLastWeekCommits(meta, lastWeek);
+    })
+    .then(function(lastWeek) {
+      data.commits.last_week = lastWeek;
+
+      // Get all closed issues.
+      return getClosedIssues(meta);
+    })
+    .then(function(closedIssues) {
+      data.closed_issues = closedIssues ? closedIssues.length : 0;
 
       fn(null, data);
     })
