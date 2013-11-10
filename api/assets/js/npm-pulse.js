@@ -6,12 +6,13 @@ var npmPulse = angular.module('npm-pulse', ['ngRoute']).
 
       window.socket.get("/api/" + projectName, function (response) {
 
-        if (response) {
-          document.querySelector('#spinner').style.display = 'none';
+        document.querySelector('#spinner').style.display = 'none';
+
+        if (response && !response.fail) {
           console.log(response);
           deferred.resolve(response);
         } else {
-          //deferred.reject('Greeting ' + name + ' is not allowed.');
+          // TODO: show the error.
           window.alert('Project Not Found');
         }
 
@@ -107,9 +108,9 @@ npmPulse.directive('moduleDownloadVis', function() {
           };
 
           d3.select(element[0]).select('svg')
-             .datum([data])
+              .datum([data])
            .transition().duration(20)
-             .call(chart);
+              .call(chart);
 
           nv.utils.windowResize(function() {
             d3.select(element[0]).select('svg').call(chart);
@@ -122,7 +123,7 @@ npmPulse.directive('moduleDownloadVis', function() {
   };
 });
 
-npmPulse.directive('moduleContributors', function() {
+npmPulse.directive('moduleContributorsVis', function() {
   return {
     restrict: 'E',
     scope: {
@@ -140,33 +141,38 @@ npmPulse.directive('moduleContributors', function() {
         var project = newVal;
 
         nv.addGraph(function() {
-          var chart = nv.models.lineChart();
+          var chart = nv.models.pieChart();
+
           var opts = {};
-          opts.margin = {left: 20, bottom: 20, top: 20, bottom: 20};
-          opts.showXAxis = false;
-          opts.showYAxis = false;
+
+          opts.margin = { top : 0, left: 0, bottom: 0, right : 0};
 
           opts.x = function(d, i) {
-            return new Date(d.key[1]);
+            return d.author.login;
           };
           opts.y = function(d, i) {
-            return d.value;
+            return d.total;
           };
+
+          opts.color = d3.scale.category20c().range();
+
+          opts.labelThreshold = 0.05;
+
+          opts.showLegend = false;
 
           chart.options(opts);
 
-          chart.isArea = true;
+          chart.donut(true);
 
-          var data = {
-            key : 'Downloads'
-          , values : project.downloadsMonth.rows
-          , color : '#2222ff'
-          };
+          chart.tooltipContent(function(key, value, e, graph) {
+            return '<h3>' + key + '</h3>' +
+                    '<p>' + Math.round(value) + ' commits </p>'
+          });
 
           d3.select(element[0]).select('svg')
-             .datum(data)
+             .datum(project.contributors)
            .transition().duration(20)
-             .call(chart);
+              .call(chart);
 
           nv.utils.windowResize(function() {
             d3.select(element[0]).select('svg').call(chart);
