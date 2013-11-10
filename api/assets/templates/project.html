@@ -58,16 +58,20 @@
       <a ng-href="{{project.author.url}}" target="_blank">GitHub</a>
     </div>
 
-    <div class="span20">
+    <div class="span12">
       <p>{{project.contributors.length}} Contributors</p>
       <div class="row">
-        <div class="span4" ng-repeat="contributor in project.contributors">
+        <div class="span3" ng-repeat="contributor in project.contributors">
           <div class="contributor">
             <img ng-src="{{contributor.author.avatar_url}}" alt="{{contributor.author.login}}" title="{{contributor.author.login}}">
             <p><a ng-href="{{contributor.author.html_url}}" target="_blank">{{contributor.author.login}}</a></p>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="span8">
+      <module-contributors-vis val="project" class="contributor-vis span8"></module-contributors-vis>
     </div>
 
   </div>
