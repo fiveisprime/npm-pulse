@@ -67,6 +67,27 @@ var getRepoMeta = function(repo) {
 };
 
 //
+// Split the repo object into something usable by the GitHub API.
+//
+var calculatePopularity = function(watchers, stars, forks, downloads) {
+  var totalActivity = watchers + stars + forks + downloads;
+
+  var watchersPercent = watchers/totalActivity;
+  var starsPercent = stars/totalActivity;
+  var forksPercent = forks/totalActivity;
+  var downloadsPercent = downloads/totalActivity;
+
+  var watchersPoints = watchers * ( 1 - watchersPercent);
+  var starsPoints = stars * ( 1 - starsPercent);
+  var forksPoints = forks * ( 1 - forksPercent);
+  var downloadsPoints = downloads * ( 1 - downloadsPercent);
+
+
+  return (watchersPoints + starsPoints + forksPoints + downloadsPoints);
+
+};
+
+//
 // GitHub constructor used to work with repositories.
 //
 var GitHub = function() {
@@ -111,6 +132,7 @@ GitHub.prototype.getRepo = function(module, fn) {
       //
       data.stars = repo.stargazers_count;
       data.issues = repo.open_issues;
+      data.watchers = repo.watchers_count;
       data.forks = repo.forks_count;
       data.author.avatar_url = repo.owner.avatar_url;
       data.author.username = repo.owner.login;
@@ -121,6 +143,8 @@ GitHub.prototype.getRepo = function(module, fn) {
       data.network_url = path.join(repo.html_url, 'network');
       data.star = path.join(repo.html_url, 'star');
       data.stargazers = path.join(repo.html_url, 'stargazers');
+
+      data.popularity = calculatePopularity(data.watchers,data.stars,data.forks,881818);
 
       return getContributors(meta);
     })
