@@ -44,7 +44,10 @@ module.exports = {
        // Send a JSON response
       return res.json(project);
     })
-    .fail(console.error.bind(console, 'failure:'))
+    .fail(function(err) {
+      console.error(err);
+      res.json({ fail: true, error: err });
+    })
     .done();
   },
 
