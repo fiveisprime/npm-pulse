@@ -82,8 +82,9 @@ var calculatePopularity = function(watchers, stars, forks, downloads) {
   var forksPoints = forks * ( 1 - forksPercent);
   var downloadsPoints = downloads * ( 1 - downloadsPercent);
 
+  var topPoints = 47505.05444166553; // Express
 
-  return (watchersPoints + starsPoints + forksPoints + downloadsPoints);
+  return ((watchersPoints + starsPoints + forksPoints + downloadsPoints)/topPoints);
 
 };
 
