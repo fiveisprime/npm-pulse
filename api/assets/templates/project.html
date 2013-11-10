@@ -15,9 +15,10 @@
     </div>
     <div class="span12">
       <div class="project-github-data">
-        <span class="project-icon" title="GitHub stars"><i class="fa fa-star"></i> {{project.stars}}</span> |
-        <span class="project-icon" title="Open issues"><i class="fa fa-exclamation-circle"></i> {{project.issues}}</span> |
-        <span class="project-icon" title="Total forks"><i class="fa fa-code-fork"></i> {{project.forks}}</span> |
+        <span class="project-icon"> <i class="fa fa-github-square"></i></span>
+        <span class="project-icon" title="GitHub stars"><a ng-href="{{project.stargazers}}"><i class="fa fa-star"></i> {{project.stars}}</a></span> 
+        <span class="project-icon" title="Open issues"><a ng-href="{{project.issues_url}}"><i class="fa fa-exclamation-circle"></i> {{project.issues}}</a></span> 
+        <span class="project-icon" title="Total forks"><a ng-href="{{project.network_url}}"><i class="fa fa-code-fork"></i> {{project.forks}}</a></span> 
       </div>
     </div>
   </div>
