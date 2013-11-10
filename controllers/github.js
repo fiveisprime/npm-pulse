@@ -8,7 +8,8 @@
 var request = require('request')
   , util    = require('util')
   , Q       = require('q')
-  , path    = require('path');
+  , path    = require('path')
+  , moment  = require('moment');
 
 const GITHUB_ROOT_URL = 'https://api.github.com';
 const REPORT_CARD_URL = 'http://osrc.dfm.io/';
@@ -91,9 +92,9 @@ var getRepoMeta = function(repo) {
   };
 };
 
-//
+
 // Calculate popularity based on watchers, stars, forks and downloads.
-//
+
 var calculatePopularity = function(watchers, stars, forks, downloads) {
   var totalActivity = watchers + stars + forks + downloads;
 
@@ -109,7 +110,55 @@ var calculatePopularity = function(watchers, stars, forks, downloads) {
 
   var topPoints = 47505.05444166553; // Express
 
-  return ((watchersPoints + starsPoints + forksPoints + downloadsPoints)/topPoints);
+  return ((watchersPoints + starsPoints + forksPoints + downloadsPoints)/topPoints).toFixed(5);
+
+};
+
+//
+// Calculate the quality of the repo based on popularity and issues
+//
+var calculateQuality = function(popularity, closed_issues, open_issues, last_commit) {
+  var response = {
+    status: '',
+    reason: '',
+  };
+
+  if(popularity > 70){
+    response = {
+      status: 'good',
+      reason: 'Has a popularity rating of 70 or above',
+    };
+    return response;
+  }
+
+  var totalIssues = closed_issues + open_issues;
+  var closedPercentage = closed_issues/totalIssues;
+  var openPercentage =  open_issues/totalIssues;
+
+  if(!(openPercentage < closedPercentage)){
+    
+    response = {
+      status: 'warning',
+      reason: 'The percentage of open issues is more than closed issues.',
+    };
+    return response;
+  }
+
+
+
+  if(moment(last_commit).isBefore(moment().subtract('y', 1))){
+    response = {
+      status: 'warning',
+      reason: 'Last commit was over a year ago.',
+    };
+    return response;
+  }
+
+  response = {
+    status: 'good',
+    reason: 'Nothing wrong was found in our calculations. ',
+  };
+  return response;
 
 };
 
@@ -196,7 +245,7 @@ GitHub.prototype.getRepo = function(module, fn) {
     })
     .then(function(closedIssues) {
       data.closed_issues = closedIssues ? closedIssues.length : 0;
-
+      data.quality = calculateQuality(data.popularity,data.closed_issues,data.issues,data.commits.most_recent);
       fn(null, data);
     })
     .fail(function(err) {

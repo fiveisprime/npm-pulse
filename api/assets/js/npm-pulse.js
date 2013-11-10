@@ -6,11 +6,13 @@ var npmPulse = angular.module('npm-pulse', ['ngRoute']).
 
       window.socket.get("/api/" + projectName, function (response) {
 
-        if (response) {
+        document.querySelector('#spinner').style.display = 'none';
+
+        if (response && !response.fail) {
           console.log(response);
           deferred.resolve(response);
         } else {
-          //deferred.reject('Greeting ' + name + ' is not allowed.');
+          // TODO: show the error.
           window.alert('Project Not Found');
         }
 
