@@ -82,10 +82,11 @@ npmPulse.directive('moduleDownloadVis', function() {
         nv.addGraph(function() {
           var chart = nv.models.lineChart();
           var opts = {};
-          opts.margin = {left: 20, bottom: 20, top: 20, bottom: 20};
+          opts.margin = {left: 10, bottom: 0, right: 10, bottom: 0};
           opts.showXAxis = false;
           opts.showYAxis = false;
           opts.showLegend = false;
+          opts.interactive = false;
 
           opts.x = function(d, i) {
             return offsetDate(d.key[1]);
@@ -101,7 +102,7 @@ npmPulse.directive('moduleDownloadVis', function() {
           var data = {
             key : 'Downloads'
           , values : project.downloadsMonth.rows
-          , color : '#2222ff'
+          , color : '#008080'
           };
 
           d3.select(element[0]).select('svg')
