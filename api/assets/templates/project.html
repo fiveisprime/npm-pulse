@@ -48,7 +48,7 @@
 
     <div class="span4">
       <p>Author</p>
-      <img src="{{project.author.avatar_url}}" alt="{{project.author.name}}">
+      <img ng-src="{{project.author.avatar_url}}" alt="{{project.author.name}}">
       <p>{{project.author.name}}</p>
       <a href="{{project.report_card}}" target="_blank">Report Card</a>
       <a href="{{project.author.url}}" target="_blank">GitHub</a>
@@ -59,7 +59,7 @@
       <div class="row">
         <div class="span4" ng-repeat="contributor in project.contributors">
           <div class="contributor">
-            <img src="{{contributor.author.avatar_url}}" alt="{{contributor.author.login}}" title="{{contributor.author.login}}">
+            <img ng-src="{{contributor.author.avatar_url}}" alt="{{contributor.author.login}}" title="{{contributor.author.login}}">
             <p><a href="{{contributor.author.html_url}}" target="_blank">{{contributor.author.login}}</a></p>
           </div>
         </div>
