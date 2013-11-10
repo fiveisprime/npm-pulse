@@ -1,7 +1,7 @@
 var controllers = require('./controllers')()
   , Q           = require('q');
 
-Q.nfcall(controllers.npm.getModule, 'ghost-buster')
+Q.nfcall(controllers.npm.getModule, 'modulus')
   .then(function(moduleMeta) {
     return Q.nfcall(controllers.gitHub.getRepo, moduleMeta);
   })
