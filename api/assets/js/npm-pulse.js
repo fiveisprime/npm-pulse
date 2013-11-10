@@ -7,6 +7,7 @@ var npmPulse = angular.module('npm-pulse', ['ngRoute']).
       window.socket.get("/api/" + projectName, function (response) {
 
         if (response) {
+          document.querySelector('#spinner').style.display = 'none';
           console.log(response);
           deferred.resolve(response);
         } else {
