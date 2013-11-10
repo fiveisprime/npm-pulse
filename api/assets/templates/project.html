@@ -15,10 +15,10 @@
     </div>
     <div class="span12">
       <div class="project-github-data">
-        <span class="project-icon"> <a ng-href="{{project.url}}"><i class="fa fa-github-square"></i></a></span>
-        <span class="project-icon" title="GitHub stars"><a ng-href="{{project.stargazers}}"><i class="fa fa-star"></i> {{project.stars}}</a></span> 
-        <span class="project-icon" title="Open issues"><a ng-href="{{project.issues_url}}"><i class="fa fa-exclamation-circle"></i> {{project.issues}}</a></span> 
-        <span class="project-icon" title="Total forks"><a ng-href="{{project.network_url}}"><i class="fa fa-code-fork"></i> {{project.forks}}</a></span> 
+        <span class="project-icon"> <i class="fa fa-github-square"></i></span>
+        <span class="project-icon" title="GitHub stars"><a ng-href="{{project.stargazers}}"><i class="fa fa-star"></i> {{project.stars}}</a></span>
+        <span class="project-icon" title="Open issues"><a ng-href="{{project.issues_url}}"><i class="fa fa-exclamation-circle"></i> {{project.issues}}</a></span>
+        <span class="project-icon" title="Total forks"><a ng-href="{{project.network_url}}"><i class="fa fa-code-fork"></i> {{project.forks}}</a></span>
       </div>
     </div>
   </div>
@@ -51,8 +51,8 @@
       <p>Author</p>
       <img ng-src="{{project.author.avatar_url}}" alt="{{project.author.name}}">
       <p>{{project.author.name}}</p>
-      <a href="{{project.report_card}}" target="_blank">Report Card</a>
-      <a href="{{project.author.url}}" target="_blank">GitHub</a>
+      <a ng-href="{{project.report_card}}" target="_blank">Report Card</a>
+      <a ng-href="{{project.author.url}}" target="_blank">GitHub</a>
     </div>
 
     <div class="span20">
@@ -61,7 +61,7 @@
         <div class="span4" ng-repeat="contributor in project.contributors">
           <div class="contributor">
             <img ng-src="{{contributor.author.avatar_url}}" alt="{{contributor.author.login}}" title="{{contributor.author.login}}">
-            <p><a href="{{contributor.author.html_url}}" target="_blank">{{contributor.author.login}}</a></p>
+            <p><a ng-href="{{contributor.author.html_url}}" target="_blank">{{contributor.author.login}}</a></p>
           </div>
         </div>
       </div>
