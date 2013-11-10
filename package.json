@@ -4,7 +4,7 @@
   "description": "Applejacks",
   "main": "server.js",
   "scripts": {
-    "start": "cd api && node app.js --dev"
+    "start": "cd api && PORT=80 node app.js --dev"
   },
   "repository": {
     "type": "git",
