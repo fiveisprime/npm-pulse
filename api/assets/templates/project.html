@@ -26,7 +26,7 @@
   <div class="row">
     <div class="span12">
       <div class="project-name">
-        <h2>{{project.name}}</h2>
+        <h2>{{project.name}} - <i title="{{project.quality.reason}}" class="fa fa-circle {{project.quality.status}}"></i></h2>
       </div>
     </div>
     <div class="span12">
@@ -39,6 +39,15 @@
     </div>
   </div>
   <div class="row">
+    <div class="span12">
+      <h1>Popularity: {{project.popularity}}/100</h1>
+    </div>
+    <div class="span12">
+      <h1>Total Downloads: {{project.popularity}}/100</h1>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
     <div class="span18">
       <div class="project-description">
         <p>{{project.description}}</p>
@@ -46,6 +55,7 @@
     </div>
     <div class="span6">
       <div class="project-meta">
+
         <p>Latest release - {{project.latest_release.version}}</p>
         <p>Initial release - {{project.initial_release.version}}</p>
       </div>

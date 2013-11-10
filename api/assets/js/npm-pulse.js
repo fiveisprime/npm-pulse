@@ -13,6 +13,7 @@ var npmPulse = angular.module('npm-pulse', ['ngRoute']).
           deferred.resolve(response);
         } else {
           // TODO: show the error.
+          console.log(response);
           window.alert('Project Not Found');
         }
 
