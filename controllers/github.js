@@ -110,7 +110,7 @@ var calculatePopularity = function(watchers, stars, forks, downloads) {
 
   var topPoints = 47505.05444166553; // Express
 
-  return ((watchersPoints + starsPoints + forksPoints + downloadsPoints)/topPoints).toFixed(5);
+  return (((watchersPoints + starsPoints + forksPoints + downloadsPoints)/topPoints).toFixed(5) * 100);
 
 };
 

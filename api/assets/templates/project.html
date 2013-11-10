@@ -39,15 +39,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="span12">
-      <h1>Popularity: {{project.popularity}}/100</h1>
-    </div>
-    <div class="span12">
-      <h1>Total Downloads: {{project.popularity}}/100</h1>
-    </div>
-  </div>
-  <hr>
-  <div class="row">
+
     <div class="span18">
       <div class="project-description">
         <p>{{project.description}}</p>
@@ -59,6 +51,15 @@
         <p>Latest release - {{project.latest_release.version}}</p>
         <p>Initial release - {{project.initial_release.version}}</p>
       </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="span12">
+      <h2>Popularity: {{project.popularity}}/100</h2>
+    </div>
+    <div class="span12">
+      <h2>Total Downloads: {{project.downloads}} </h2>
     </div>
   </div>
   <!-- <div class="row">
