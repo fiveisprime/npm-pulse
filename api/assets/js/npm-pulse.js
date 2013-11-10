@@ -52,36 +52,126 @@ function ProjectCtrl($scope, $location, $routeParams, Projects) {
       $location.path('/' + $scope.projectName);
     }
   };
+};
 
-}
+var offsetDate = function(dateStr) {
+  var _date = new Date(dateStr);
+  var _helsenkiOffset = 2*60000;//maybe 3
+  var _userOffset = _date.getTimezoneOffset()*60000;
+  var _helsenkiTime = new Date(_date.getTime()+_helsenkiOffset+_userOffset);
+  return _helsenkiTime;
+};
 
 npmPulse.directive('moduleDownloadVis', function() {
-
-  var margin = 20,
-    width = 960,
-    height = 500 - .5 - margin,
-    color = d3.interpolateRgb("#f77", "#77f");
-
   return {
     restrict: 'E',
     scope: {
       val: '='
     },
     link: function (scope, element, attrs) {
-      console.log('download vis');
-      console.log(element[0]);
-
-      var vis = d3.select(element[0])
-        .append("svg")
-          .attr("width", width)
-          .attr("height", height + margin + 100);
+      var vis = d3.select(element[0]).append("svg");
 
       scope.$watch('val', function (newVal, oldVal) {
-        console.log('vis value set');
 
         if (!newVal) {
           return;
         }
+
+        var project = newVal;
+
+        nv.addGraph(function() {
+          var chart = nv.models.lineChart();
+          var opts = {};
+          opts.margin = {left: 20, bottom: 20, top: 20, bottom: 20};
+          opts.showXAxis = false;
+          opts.showYAxis = false;
+          opts.showLegend = false;
+
+          opts.x = function(d, i) {
+            return offsetDate(d.key[1]);
+          };
+          opts.y = function(d, i) {
+            return d.value;
+          };
+
+          opts.isArea = true;
+
+          chart.options(opts);
+
+          var data = {
+            key : 'Downloads'
+          , values : project.downloadsMonth.rows
+          , color : '#2222ff'
+          };
+
+          d3.select(element[0]).select('svg')
+             .datum([data])
+           .transition().duration(20)
+             .call(chart);
+
+          nv.utils.windowResize(function() {
+            d3.select(element[0]).select('svg').call(chart);
+          });
+
+          return chart;
+        });
+      });
+    }
+  };
+});
+
+npmPulse.directive('moduleContributors', function() {
+  return {
+    restrict: 'E',
+    scope: {
+      val: '='
+    },
+    link: function (scope, element, attrs) {
+      var vis = d3.select(element[0]).append("svg");
+
+      scope.$watch('val', function (newVal, oldVal) {
+
+        if (!newVal) {
+          return;
+        }
+
+        var project = newVal;
+
+        nv.addGraph(function() {
+          var chart = nv.models.lineChart();
+          var opts = {};
+          opts.margin = {left: 20, bottom: 20, top: 20, bottom: 20};
+          opts.showXAxis = false;
+          opts.showYAxis = false;
+
+          opts.x = function(d, i) {
+            return new Date(d.key[1]);
+          };
+          opts.y = function(d, i) {
+            return d.value;
+          };
+
+          chart.options(opts);
+
+          chart.isArea = true;
+
+          var data = {
+            key : 'Downloads'
+          , values : project.downloadsMonth.rows
+          , color : '#2222ff'
+          };
+
+          d3.select(element[0]).select('svg')
+             .datum(data)
+           .transition().duration(20)
+             .call(chart);
+
+          nv.utils.windowResize(function() {
+            d3.select(element[0]).select('svg').call(chart);
+          });
+
+          return chart;
+        });
       });
     }
   };
