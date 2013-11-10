@@ -67,9 +67,31 @@ var getRepoMeta = function(repo) {
 };
 
 //
-// Split the repo object into something usable by the GitHub API.
+// Calculate the popularity of the repo based on watchers, stars, forks, downloads
 //
 var calculatePopularity = function(watchers, stars, forks, downloads) {
+  var totalActivity = watchers + stars + forks + downloads;
+
+  var watchersPercent = watchers/totalActivity;
+  var starsPercent = stars/totalActivity;
+  var forksPercent = forks/totalActivity;
+  var downloadsPercent = downloads/totalActivity;
+
+  var watchersPoints = watchers * ( 1 - watchersPercent);
+  var starsPoints = stars * ( 1 - starsPercent);
+  var forksPoints = forks * ( 1 - forksPercent);
+  var downloadsPoints = downloads * ( 1 - downloadsPercent);
+
+  var topPoints = 47505.05444166553; // Express
+
+  return ((watchersPoints + starsPoints + forksPoints + downloadsPoints)/topPoints);
+
+};
+
+//
+// Calculate the quality of the repo based on popularity and issues
+//
+var calculatePopularity = function(popularity, closed_issues, open_issues, last_commit) {
   var totalActivity = watchers + stars + forks + downloads;
 
   var watchersPercent = watchers/totalActivity;
