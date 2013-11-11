@@ -56,10 +56,10 @@
   <hr>
   <div class="row">
     <div class="span12">
-      <h2>Popularity: {{project.popularity}}/100</h2>
+      <h2>Popularity: {{project.popularity}}/1</h2>
     </div>
     <div class="span12">
-      <h2>Total Downloads: {{project.downloads}} </h2>
+      <h2>Total Downloads: {{project.downloadsMonth.rows[30].value}} /  {{project.downloadsMonth.rows | valueTotal}}</h2>
     </div>
   </div>
   <!-- <div class="row">

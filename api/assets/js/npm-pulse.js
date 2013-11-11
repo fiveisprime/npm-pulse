@@ -1,4 +1,14 @@
-var npmPulse = angular.module('npm-pulse', ['ngRoute']).
+angular.module('downloadFilters', []).filter('valueTotal', function() {
+  return function(input) {
+    var total = 0;
+    for(var i = 0; i < input.length; i++) {
+      total += input[i].value;
+    }
+    return total;
+  };
+});
+
+var npmPulse = angular.module('npm-pulse', ['downloadFilters','ngRoute']).
   factory('Projects', function($q, $timeout) {
     var getProject = function(projectName) {
 
