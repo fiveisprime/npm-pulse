@@ -111,7 +111,7 @@ var calculatePopularity = function(watchers, stars, forks, downloads) {
   // Express' score is used as a baseline.
   var topPoints = 47980.104986082;
 
-  return ~~(((watchersPoints + starsPoints + forksPoints + downloadsPoints)/topPoints).toFixed(5) * 100).toFixed(4);
+  return ~~(((watchersPoints + starsPoints + forksPoints + downloadsPoints)/topPoints).toFixed(5) * 100);
 
 };
 
