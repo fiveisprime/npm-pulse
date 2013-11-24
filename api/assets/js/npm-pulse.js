@@ -19,7 +19,11 @@ var npmPulse = angular.module('npm-pulse', ['downloadFilters','ngRoute']).
         document.querySelector('#spinner').style.display = 'none';
 
         if (response && !response.fail) {
-          console.log(response);
+          var downloads = response.downloadsMonth.rows
+            , index     = response.downloadsMonth.rows.length - 1;
+
+          // Calculate the downloads for the current month.
+          response.downloadsCurrent = downloads[index].value;
           deferred.resolve(response);
         } else {
           // TODO: show the error.
