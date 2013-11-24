@@ -109,7 +109,7 @@ var calculatePopularity = function(watchers, stars, forks, downloads) {
   var downloadsPoints = downloads * ( 1 - downloadsPercent);
 
   // Express' score is used as a baseline.
-  var topPoints = 47505.05444166553;
+  var topPoints = 47980.104986082;
 
   return ~~(((watchersPoints + starsPoints + forksPoints + downloadsPoints)/topPoints).toFixed(5) * 100).toFixed(4);
 
@@ -137,7 +137,7 @@ var calculateQuality = function(popularity, closed_issues, open_issues, last_com
   var openPercentage =  open_issues/totalIssues;
 
   if (openPercentage > closedPercentage) {
-    
+
     response = {
       status: 'warning',
       reason: 'The percentage of open issues is more than closed issues.',
@@ -193,9 +193,19 @@ GitHub.prototype.getRepo = function(module, fn) {
     version: versions[versions.length - 1]
   , date: module.time[versions[versions.length - 1]]
   };
-  data.author = {
-    name: module.author.name
-  };
+
+  if (typeof module.author === 'undefined') {
+    // Handle the case where there is no author; just grab the first of the
+    //    maintainers.
+    data.author = {
+      name: module.maintainers[0].name
+    };
+  } else {
+    data.author = {
+      name: module.author.name
+    };
+  }
+
   data.versions = module.time;
 
   getRepo(meta)
