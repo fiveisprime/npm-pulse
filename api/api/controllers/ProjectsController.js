@@ -34,15 +34,7 @@ module.exports = {
       return Q.nfcall(controllers.gitHub.getRepo, moduleMeta);
     })
     .then(function(projectData) {
-      project = projectData;
-      var endDate = new Date();
-      var startDate = moment(endDate).subtract('days', 30).toDate();
-      return Q.nfcall(controllers.npm.getModuleDownloads, projectName, startDate, endDate, false);
-    })
-    .then(function(downloads) {
-      project.downloadsMonth = downloads;
-       // Send a JSON response
-      return res.json(project);
+      res.json(projectData);
     })
     .fail(function(err) {
       console.error(err);
@@ -51,14 +43,10 @@ module.exports = {
     .done();
   },
 
-
-
-
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to ProjectsController)
    */
   _config: {}
-
 
 };

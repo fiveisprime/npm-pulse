@@ -184,6 +184,7 @@ GitHub.prototype.getRepo = function(module, fn) {
   //
   data.name = module.name;
   data.description = module.description;
+  data.downloadsMonth = module.downloadsMonth;
   data.report_card = REPORT_CARD_URL + meta.user;
   data.initial_release = {
     version: versions[0]
@@ -224,7 +225,7 @@ GitHub.prototype.getRepo = function(module, fn) {
       data.star = path.join(repo.html_url, 'star');
       data.stargazers = path.join(repo.html_url, 'stargazers');
 
-      data.popularity = calculatePopularity(data.watchers,data.stars,data.forks,881818);
+      data.popularity = calculatePopularity(data.watchers, data.stars, data.forks, 881818);
 
       return getContributors(meta);
     })
@@ -253,7 +254,7 @@ GitHub.prototype.getRepo = function(module, fn) {
     })
     .then(function(closedIssues) {
       data.closed_issues = closedIssues ? closedIssues.length : 0;
-      data.quality = calculateQuality(data.popularity,data.closed_issues,data.issues,data.commits.most_recent);
+      data.quality = calculateQuality(data.popularity, data.closed_issues, data.issues, data.commits.most_recent);
       fn(null, data);
     })
     .fail(function(err) {
