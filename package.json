@@ -2,7 +2,7 @@
   "name": "nko4-applejacks",
   "version": "0.0.0",
   "description": "Applejacks",
-  "main": "server.js",
+  "main": "./api/app.js",
   "scripts": {
     "start": "cd api && node app.js --prod"
   },

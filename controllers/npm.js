@@ -5,13 +5,14 @@
 //     MIT Licensed
 //
 
-var request = require('request')
-  , moment = require('moment');
+var request   = require('request')
+  , moment    = require('moment')
+  , os        = require('os')
+  , RegClient = require('npm-registry-client');
 
-var RegClient = require('npm-registry-client')
-  , client    = new RegClient({
+var client    = new RegClient({
     registry: 'http://registry.npmjs.org'
-  , cache: './tmp'
+  , cache: process.env.TEMP_DIR || os.tmpdir()
   });
 
 const NPM_ROOT_URL = 'http://registry.npmjs.org/';
