@@ -21,7 +21,7 @@ const UA_STRING       = 'applejacks/npm-pulse';
 var get = function get(uri) {
   var deferred = Q.defer();
   var opts = {
-    methid: 'GET'
+    method: 'GET'
   , url: GITHUB_ROOT_URL + uri
   , json: true
   , headers: {
@@ -92,9 +92,9 @@ var getRepoMeta = function(repo) {
   };
 };
 
-
+//
 // Calculate popularity based on watchers, stars, forks and downloads.
-
+//
 var calculatePopularity = function(watchers, stars, forks, downloads) {
   var totalActivity = watchers + stars + forks + downloads;
 
@@ -108,7 +108,8 @@ var calculatePopularity = function(watchers, stars, forks, downloads) {
   var forksPoints = forks * ( 1 - forksPercent);
   var downloadsPoints = downloads * ( 1 - downloadsPercent);
 
-  var topPoints = 47505.05444166553; // Express
+  // Express' score is used as a baseline.
+  var topPoints = 47505.05444166553;
 
   return (((watchersPoints + starsPoints + forksPoints + downloadsPoints)/topPoints).toFixed(5) * 100).toFixed(4);
 
@@ -123,7 +124,7 @@ var calculateQuality = function(popularity, closed_issues, open_issues, last_com
     reason: '',
   };
 
-  if(popularity > 70){
+  if (popularity > 70) {
     response = {
       status: 'good',
       reason: 'Has a popularity rating of 70 or above',
@@ -135,7 +136,7 @@ var calculateQuality = function(popularity, closed_issues, open_issues, last_com
   var closedPercentage = closed_issues/totalIssues;
   var openPercentage =  open_issues/totalIssues;
 
-  if(!(openPercentage < closedPercentage)){
+  if (openPercentage > closedPercentage) {
     
     response = {
       status: 'warning',
@@ -144,9 +145,7 @@ var calculateQuality = function(popularity, closed_issues, open_issues, last_com
     return response;
   }
 
-
-
-  if(moment(last_commit).isBefore(moment().subtract('y', 1))){
+  if (moment(last_commit).isBefore(moment().subtract('y', 1))) {
     response = {
       status: 'warning',
       reason: 'Last commit was over a year ago.',
@@ -159,7 +158,6 @@ var calculateQuality = function(popularity, closed_issues, open_issues, last_com
     reason: 'Nothing wrong was found in our calculations. ',
   };
   return response;
-
 };
 
 //

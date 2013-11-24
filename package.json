@@ -4,7 +4,7 @@
   "description": "Applejacks",
   "main": "server.js",
   "scripts": {
-    "start": "cd api && PORT=80 node app.js --prod"
+    "start": "cd api && node app.js --prod"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,8 @@
     "sails-disk": "~0.9.0",
     "ejs": "0.8.4",
     "optimist": "0.3.4",
-    "moment": "~2.4.0"
+    "moment": "~2.4.0",
+    "npm-registry-client": "~0.2.30"
   },
   "engines": {
     "node": "0.10.x"

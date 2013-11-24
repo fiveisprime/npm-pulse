@@ -8,9 +8,15 @@
 var request = require('request')
   , moment = require('moment');
 
+var RegClient = require('npm-registry-client')
+  , client    = new RegClient({
+    registry: 'http://registry.npmjs.org'
+  , cache: './tmp'
+  });
+
 const NPM_ROOT_URL = 'http://registry.npmjs.org/';
 const DOWNLOAD_ROOT_URL = 'http://isaacs.iriscouch.com/';
-const DOWNLOAD_PKG_VIEW = 'downloads/_design/app/_view/pkg'
+const DOWNLOAD_PKG_VIEW = 'downloads/_design/app/_view/pkg';
 //
 // npm constructor for working with module data from http://npmjs.org.
 //
@@ -22,16 +28,9 @@ var Npm = function() {
 // Gets metadata for the specified module.
 //
 Npm.prototype.getModule = function(name, fn) {
-  var opts = {
-    methid: 'GET'
-  , url: NPM_ROOT_URL + name
-  , json: true
-  };
-
-  return request(opts, function(err, response, body) {
+  client.request('GET', NPM_ROOT_URL + name, function(err, pack) {
     if (err) return fn(err);
-    if (response.statusCode !== 200) return fn(new Error(body));
-    fn(null, body);
+    fn(null, pack);
   });
 };
 
@@ -54,13 +53,13 @@ Npm.prototype.getModuleDownloads = function(name, start, end, total, fn) {
   };
 
   var opts = {
-    methid : 'GET'
+    method : 'GET'
   , url: DOWNLOAD_ROOT_URL + DOWNLOAD_PKG_VIEW
   , qs: qs
   , json: true
   };
 
-  return request(opts, function(err, response, body) {
+  request(opts, function(err, response, body) {
     if (err) return fn(err);
     if (response.statusCode !== 200) return fn(new Error(body));
     fn(null, body);
