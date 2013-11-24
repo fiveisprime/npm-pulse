@@ -1,5 +1,6 @@
 {
   "name": "nko4-applejacks",
+  "mod-project-name": "npm-pulse",
   "version": "0.0.0",
   "description": "Applejacks",
   "main": "./api/app.js",
