@@ -14,7 +14,7 @@ var npmPulse = angular.module('npm-pulse', ['downloadFilters','ngRoute']).
 
       var deferred = $q.defer();
 
-      window.socket.get("/api/" + projectName, function (response) {
+      window.socket.get('/api/' + projectName, function (response) {
 
         document.querySelector('#spinner').style.display = 'none';
 
@@ -86,7 +86,7 @@ npmPulse.directive('moduleDownloadVis', function() {
       val: '='
     },
     link: function (scope, element, attrs) {
-      var vis = d3.select(element[0]).append("svg");
+      var vis = d3.select(element[0]).append('svg');
 
       scope.$watch('val', function (newVal, oldVal) {
 
@@ -145,7 +145,7 @@ npmPulse.directive('moduleContributorsVis', function() {
       val: '='
     },
     link: function (scope, element, attrs) {
-      var vis = d3.select(element[0]).append("svg");
+      var vis = d3.select(element[0]).append('svg');
 
       scope.$watch('val', function (newVal, oldVal) {
 
