@@ -22,7 +22,7 @@ var npmPulse = angular.module('npm-pulse', ['downloadFilters','ngRoute']).
           var downloads = response.downloadsMonth.rows
             , index     = response.downloadsMonth.rows.length - 1;
 
-          // Calculate the downloads for the current month.
+          // Set the downloads count for the current month.
           response.downloadsCurrent = downloads[index].value;
           deferred.resolve(response);
         } else {

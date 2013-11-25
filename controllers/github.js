@@ -185,6 +185,7 @@ GitHub.prototype.getRepo = function(module, fn) {
   data.name = module.name;
   data.description = module.description;
   data.downloadsMonth = module.downloadsMonth;
+  data.downloadsTotal = module.downloadsTotal;
   data.report_card = REPORT_CARD_URL + meta.user;
   data.initial_release = {
     version: versions[0]
@@ -225,7 +226,7 @@ GitHub.prototype.getRepo = function(module, fn) {
       data.star = path.join(repo.html_url, 'star');
       data.stargazers = path.join(repo.html_url, 'stargazers');
 
-      data.popularity = calculatePopularity(data.watchers, data.stars, data.forks, 881818);
+      data.popularity = calculatePopularity(data.watchers, data.stars, data.forks, data.downloadsTotal);
 
       return getContributors(meta);
     })

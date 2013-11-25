@@ -67,7 +67,13 @@ Npm.prototype.getModule = function(name, fn) {
     getModuleDownloads(name, startDate, endDate, false, function(err, downloads) {
       if (err) return fn(err);
 
-      pack.downloadsMonth = downloads
+      var total = 0, i = 0;
+      for (; i < downloads.rows.length; i++) {
+        total += downloads.rows[i].value;
+      }
+
+      pack.downloadsMonth = downloads;
+      pack.downloadsTotal = total;
       fn(null, pack);
     });
   });

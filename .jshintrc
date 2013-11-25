@@ -1,7 +1,7 @@
 {
   "maxerr"        : 50,
 
-  "bitwise"       : true,
+  "bitwise"       : false,
   "camelcase"     : false,
   "curly"         : false,
   "eqeqeq"        : true,
