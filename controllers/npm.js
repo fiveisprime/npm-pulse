@@ -41,7 +41,10 @@ var getModuleDownloads = function(name, start, end, total, fn) {
 
   request(opts, function(err, response, body) {
     if (err) return fn(err);
-    if (response.statusCode !== 200) return fn(new Error(body));
+    if (response.statusCode !== 200) {
+      console.log('npm request failed', response.statusCode, body);
+      return fn(new Error(body));
+    }
 
     fn(null, body);
   });

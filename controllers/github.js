@@ -35,7 +35,10 @@ var get = function get(uri) {
 
   request(opts, function(err, response, body) {
     if (err) return deferred.reject(err);
-    if (response.statusCode !== 200) return deferred.reject(new Error(body.message));
+    if (response.statusCode !== 200) {
+      console.log('GitHub request failed', response.statusCode, body);
+      return deferred.reject(new Error(body));
+    }
 
     deferred.resolve(body);
   });
