@@ -19,7 +19,7 @@ const UA_STRING       = 'applejacks/npm-pulse';
 // Helper for getting data from GitHub.
 //
 var get = function get(uri) {
-  var deferred = Q.defer();
+  var deferred = Q.defer(), retryCount = 1;
   var opts = {
     method: 'GET'
   , url: GITHUB_ROOT_URL + uri
@@ -33,15 +33,26 @@ var get = function get(uri) {
     }
   };
 
-  request(opts, function(err, response, body) {
-    if (err) return deferred.reject(err);
-    if (response.statusCode !== 200) {
-      console.log('GitHub request failed', opts, response.statusCode, body);
-      return deferred.reject(new Error(body));
-    }
+  function gitHubRequest() {
+    request(opts, function(err, response, body) {
+      console.log('GitHub request [%s] attempt %d', uri, retryCount);
+      if (err) return deferred.reject(err);
 
-    deferred.resolve(body);
-  });
+      // Workaround: retry the request up to 15 times if a 202 is returned.
+      if (response.statusCode === 202 && retryCount++ <= 15) {
+        return setTimeout(gitHubRequest, 300);
+      }
+
+      if (response.statusCode !== 200) {
+        console.log('GitHub request failed', opts, response.statusCode, body);
+        return deferred.reject(new Error(body));
+      }
+
+      deferred.resolve(body);
+    });
+  }
+
+  gitHubRequest();
 
   return deferred.promise;
 };
