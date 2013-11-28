@@ -33,7 +33,7 @@ var get = function get(uri) {
     }
   };
 
-  function gitHubRequest() {
+  !function gitHubRequest() {
     request(opts, function(err, response, body) {
       console.log('GitHub request [%s] attempt %d', uri, retryCount);
       if (err) return deferred.reject(err);
@@ -50,9 +50,7 @@ var get = function get(uri) {
 
       deferred.resolve(body);
     });
-  }
-
-  gitHubRequest();
+  }();
 
   return deferred.promise;
 };
