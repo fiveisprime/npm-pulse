@@ -61,7 +61,7 @@ var Npm = function() {
 // Gets metadata for the specified module.
 //
 Npm.prototype.getModule = function(name, fn) {
-  client.request('GET', NPM_ROOT_URL + name, function(err, pack) {
+  client.request('GET', NPM_ROOT_URL + name, function(err, pkg) {
     if (err) return fn(err);
 
     var endDate = new Date();
@@ -75,9 +75,9 @@ Npm.prototype.getModule = function(name, fn) {
         total += downloads.rows[i].value;
       }
 
-      pack.downloadsMonth = downloads;
-      pack.downloadsTotal = total;
-      fn(null, pack);
+      pkg.downloadsMonth = downloads;
+      pkg.downloadsTotal = total;
+      fn(null, pkg);
     });
   });
 };

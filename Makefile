@@ -1,5 +1,6 @@
-SRC = $(wildcard **/*.js)
+SRC = $(wildcard controllers/*.js)
 
 lint: $(SRC)
 	@node node_modules/.bin/jshint $^ \
-	--verbose
+	--verbose \
+	--show-non-errors
