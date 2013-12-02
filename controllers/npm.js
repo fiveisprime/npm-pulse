@@ -10,10 +10,10 @@ var request   = require('request')
   , os        = require('os')
   , RegClient = require('npm-registry-client');
 
-var client    = new RegClient({
-    registry: 'http://registry.npmjs.org'
-  , cache: process.env.TEMP_DIR || os.tmpdir()
-  });
+var client = new RegClient({
+  registry: 'http://registry.npmjs.org'
+, cache: process.env.TEMP_DIR || os.tmpdir()
+});
 
 const NPM_ROOT_URL = 'http://registry.npmjs.org/';
 const DOWNLOAD_ROOT_URL = 'http://isaacs.iriscouch.com/';
