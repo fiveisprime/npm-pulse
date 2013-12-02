@@ -40,7 +40,7 @@ var get = function get(uri) {
 
       // Workaround: retry the request up to 15 times if a 202 is returned.
       if (response.statusCode === 202 && retryCount++ <= 15) {
-        return setTimeout(gitHubRequest, 300);
+        return setTimeout(sendRequest, 300);
       }
 
       if (response.statusCode !== 200) {
