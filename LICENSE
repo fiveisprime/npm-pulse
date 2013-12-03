@@ -1,11 +1,3 @@
-npm pulse
-=========
-
-Check the pulse of a node module. Uses data from both npm and GitHub to check
-the health and rate modules.
-
-# License
-
 The MIT License (MIT)
 
 Copyright (c) 2013 Matt Hernandez, Charlie Key, and Taron Foxworth
