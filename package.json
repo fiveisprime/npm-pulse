@@ -3,9 +3,9 @@
   "mod-project-name": "npm-pulse",
   "version": "0.0.0",
   "description": "Applejacks",
-  "main": "./api/app.js",
+  "main": "api/app.js",
   "scripts": {
-    "start": "cd api && node app.js --prod"
+    "start": "node api/app.js --prod"
   },
   "repository": {
     "type": "git",

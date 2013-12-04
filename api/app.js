@@ -1,4 +1,6 @@
-// Start sails and pass it command line arguments
-require('sails').lift(require('lodash').merge(require('optimist').argv, {
-  appPath: require('path').resolve(__dirname)
-});
+var path = require('path')
+  , args = require('optimist').argv;
+
+args.appPath = path.resolve(__dirname);
+
+require('sails').lift(args);
