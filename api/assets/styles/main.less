@@ -1,25 +1,36 @@
 @linkColor      : #008080;
 @linkHoverColor : darken(@linkColor, 10%);
 
-body , html{
+body,
+html {
   font-family: "Lato", Helvetica, Arial, sans-serif;
   font-size: 18px;
   line-height: 1.72222;
   color: #34495e;
   background-color: #ffffff;
-  height:100%;
+  height: 100%;
 }
 
-h1, h2, h3, h4, h5, h6{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Lato", Helvetica, Arial, sans-serif;
   font-weight: 700;
   line-height: 1.1;
   color: inherit;
+  text-transform: capitalize;
 }
 
 p {
   margin: 0;
   padding: 0;
+}
+
+a.name {
+  color: #34495e !important;
 }
 
 a {
@@ -41,11 +52,11 @@ hr {
   border-top: 1px solid #eee;
 }
 
-.centered{
+.centered {
   text-align: center;
 }
 
-button{
+button {
   background: #34495e;
   border: none;
   color: white;
@@ -54,14 +65,14 @@ button{
   padding: 0 20px;
 }
 
-input[type="text"]{
+input[type="text"] {
   height: 44px;
   box-shadow: none;
   border: 1px #eee solid;
   padding-left: 10px;
 }
 
-.container{
+.container {
   position: relative;
   width: 960px;
   margin: 0 auto;
@@ -72,7 +83,6 @@ input[type="text"]{
 }
 
 .contributor {
-  //border-bottom: 1px solid #f0f0f0;
   text-align:center;
   margin-bottom: 10px;
   img {
@@ -88,22 +98,22 @@ input[type="text"]{
   margin : 0;
 }
 
-header{
+header {
   text-align: center;
-  .title a{
+  .title a {
     color: #34495e;
     text-decoration: none;
   }
 }
 
-#content{
+#content {
   margin-bottom:20px;
-  .search{
+  .search {
     text-align: center;
   }
 }
 
-footer{
+footer {
   bottom: 45px;
 }
 
@@ -111,11 +121,11 @@ footer{
   text-align: right
 }
 
-.good{
+.good {
   color: green;
 }
 
-.warning{
+.warning {
   color: yellow;
 }
 
@@ -126,23 +136,23 @@ footer{
   pointer-events: none;
 }
 
-.project{
-  .project-meta{
+.project {
+  .project-meta {
     text-align: right;
   }
-  .project-github-data{
+  .project-github-data {
     margin-top: 22px;
     text-align:right;
-    .project-icon{
+    .project-icon {
       margin: 0 10px;
-      i{
+      i {
         margin-left: 4px;
       }
     }
   }
 }
 
-#version-list{
+#version-list {
   width: 38px;
   margin: auto;
 }

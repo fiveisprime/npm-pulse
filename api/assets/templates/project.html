@@ -25,7 +25,12 @@
   <div class="row">
     <div class="span12">
       <div class="project-name">
-        <h2>{{project.name}} <i title="{{project.quality.reason}}" class="fa fa-circle {{project.quality.status}}"></i></h2>
+        <a ng-href="http://npm.im/{{project.name}}" target="_blank" class="name">
+          <h2>
+            {{project.name}}
+            <i title="{{project.quality.reason}}" class="fa fa-circle {{project.quality.status}}"></i>
+          </h2>
+        </a>
       </div>
     </div>
     <div class="span12">
@@ -42,9 +47,6 @@
     <div class="span18">
       <div class="project-description">
         <p>{{project.description}}</p>
-      </div>
-      <div class="project-links">
-        <p><a href="http://npm.im/{{project.name}}">npm</a></p>
       </div>
     </div>
     <div class="span6">
