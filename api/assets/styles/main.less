@@ -1,3 +1,4 @@
+@primaryColor   : #34495E;
 @linkColor      : #008080;
 @linkHoverColor : darken(@linkColor, 10%);
 
@@ -6,7 +7,7 @@ html {
   font-family: "Lato", Helvetica, Arial, sans-serif;
   font-size: 18px;
   line-height: 1.72222;
-  color: #34495e;
+  color: @primaryColor;
   background-color: #ffffff;
   height: 100%;
 }
@@ -30,7 +31,7 @@ p {
 }
 
 a.name {
-  color: #34495e !important;
+  color: @primaryColor !important;
 }
 
 a {
@@ -57,7 +58,7 @@ hr {
 }
 
 button {
-  background: #34495e;
+  background: @primaryColor;
   border: none;
   color: white;
   font-weight: bold;
@@ -83,7 +84,7 @@ input[type="text"] {
 }
 
 .contributor {
-  text-align:center;
+  text-align: center;
   margin-bottom: 10px;
   img {
     max-width: 40px
@@ -94,14 +95,14 @@ input[type="text"] {
 }
 
 .contributor-vis {
-  height : 300px;
-  margin : 0;
+  height: 300px;
+  margin: 0;
 }
 
 header {
   text-align: center;
   .title a {
-    color: #34495e;
+    color: @primaryColor;
     text-decoration: none;
   }
 }
