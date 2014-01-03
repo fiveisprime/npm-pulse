@@ -5,7 +5,7 @@
   "description": "Applejacks",
   "main": "api/app.js",
   "scripts": {
-    "start": "node api/app.js --prod"
+    "start": "node site/app.js"
   },
   "repository": {
     "type": "git",
