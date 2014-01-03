@@ -1,4 +1,4 @@
-var controllers = require('./../../../controllers')()
+var controllers = require('./../../../lib')()
   , Q           = require('q');
 
 module.exports = {
