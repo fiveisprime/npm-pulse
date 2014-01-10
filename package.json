@@ -3,7 +3,7 @@
   "mod-project-name": "npm-pulse",
   "version": "0.0.0",
   "description": "Applejacks",
-  "main": "api/app.js",
+  "main": "site/app.js",
   "scripts": {
     "start": "node site/app.js"
   },
