@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-var args = process.argv.splice(2, 1)
-  , colors = require('colors')
+var args        = process.argv.splice(2)
+  , colors      = require('colors')
   , controllers = require('../lib')()
-  , Q = require('q');
+  , Q           = require('q');
 
 colors.setTheme({
   good: 'green',
-  warning: 'red',
+  warning: 'red'
 });
 
 if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
