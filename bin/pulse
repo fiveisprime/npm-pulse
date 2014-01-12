@@ -45,7 +45,7 @@ Q.nfcall(pulse.npm.getModule, args[0])
     console.log();
   })
   .fail(function(err) {
-    console.error(err.message);
-    process.exit(1);
+    console.error(err.message.red);
+    process.exit(0);
   })
   .done();

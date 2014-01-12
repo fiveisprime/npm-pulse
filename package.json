@@ -1,7 +1,7 @@
 {
   "name": "npm-pulse",
   "mod-project-name": "npm-pulse",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Check the pulse of node modules from the terminal.",
   "main": "site/app.js",
   "scripts": {
