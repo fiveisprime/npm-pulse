@@ -1,0 +1,46 @@
+#!/usr/bin/env node
+
+var args = process.argv.splice(2, 1)
+  , colors = require('colors')
+  , controllers = require('../lib')()
+  , Q = require('q');
+
+colors.setTheme({
+  good: 'green',
+  warning: 'red',
+});
+
+
+if (args.length === 0) {
+  console.log('You must specify a module to look up.');
+  return process.exit(1);
+}
+
+Q.nfcall(controllers.npm.getModule, args[0])
+  .then(function(moduleMeta) {
+    return Q.nfcall(controllers.gitHub.getRepo, moduleMeta);
+  })
+  .then(function(projectData) {
+
+    console.log();
+
+    console.log('Name:'.bold, projectData.name);
+    console.log('Description:'.bold, projectData.description);
+    console.log('Watchers:'.bold, projectData.watchers);
+    console.log('Current Version:'.bold, projectData.latest_release.version);
+
+    console.log();
+    console.log('------------------------- Quality -------------------------');
+    console.log();
+
+    console.log('Status:'.bold, projectData.quality.status[projectData.quality.status]);
+    console.log('Reason:'.bold, projectData.quality.reason);
+    console.log('Popularity:'.bold, projectData.popularity);
+
+    console.log();
+  })
+  .fail(function(err) {
+    console.error(err);
+    process.exit(1);
+  })
+  .done();
