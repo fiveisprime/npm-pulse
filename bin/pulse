@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-var args        = process.argv.splice(2)
-  , colors      = require('colors')
-  , pulse       = require('../lib')()
-  , Q           = require('q');
+var args       = process.argv.splice(2)
+  , colors     = require('colors')
+  , prettyjson = require('prettyjson')
+  , pulse      = require('../lib')()
+  , Q          = require('q');
 
 colors.setTheme({
   good: 'green',
@@ -17,6 +18,7 @@ if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
   console.log('  Options:');
   console.log();
   console.log('    -h, --help\t\toutput usage information');
+  console.log('    -r, --raw \t\toutput the raw JSON data');
   console.log();
   return process.exit(0);
 }
@@ -30,24 +32,42 @@ Q.nfcall(pulse.npm.getModule, args[0])
   .then(function(moduleMeta) {
     return Q.nfcall(pulse.gitHub.getRepo, moduleMeta);
   })
-  .then(function(projectData) {
+  .then(function(moduleData) {
 
-    console.log();
+    if (args.length === 2 && args[1] === '--raw' || args[1] === '-r') {
+      //
+      // Remove the larger data objects so the output is readable.
+      //
+      delete moduleData.contributors;
+      delete moduleData.commits;
+      delete moduleData.downloadsMonth;
+      delete moduleData.star;
+      delete moduleData.network_url;
+      delete moduleData.fork;
+      delete moduleData.stargazers;
 
-    console.log('Name:'.bold, projectData.name);
-    console.log('Description:'.bold, projectData.description);
-    console.log('Watchers:'.bold, projectData.watchers);
-    console.log('Current Version:'.bold, projectData.latest_release.version);
+      console.log();
+      console.log(prettyjson.render(moduleData));
+      console.log();
+    } else {
+      console.log();
 
-    console.log();
-    console.log('------------------------- Quality -------------------------');
-    console.log();
+      console.log('Name:'.bold, moduleData.name);
+      console.log('Description:'.bold, moduleData.description);
+      console.log('Watchers:'.bold, moduleData.watchers);
+      console.log('Downloads:'.bold, moduleData.downloadsTotal);
+      console.log('Current Version:'.bold, moduleData.latest_release.version);
 
-    console.log('Status:'.bold, projectData.quality.status[projectData.quality.status]);
-    console.log('Reason:'.bold, projectData.quality.reason);
-    console.log('Popularity:'.bold, projectData.popularity);
+      console.log();
+      console.log('------------------------- Quality -------------------------');
+      console.log();
 
-    console.log();
+      console.log('Status:'.bold, moduleData.quality.status[moduleData.quality.status]);
+      console.log('Reason:'.bold, moduleData.quality.reason);
+      console.log('Popularity:'.bold, moduleData.popularity);
+
+      console.log();
+    }
   })
   .fail(function(err) {
     console.error(err.message.red);
