@@ -21,6 +21,11 @@ if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
   return process.exit(0);
 }
 
+if (args[0] === '--version' || args[0] === '-v' || args[0] === '-V') {
+  console.log(require('../package').version);
+  return process.exit(0);
+}
+
 Q.nfcall(pulse.npm.getModule, args[0])
   .then(function(moduleMeta) {
     return Q.nfcall(pulse.gitHub.getRepo, moduleMeta);
