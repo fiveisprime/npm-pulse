@@ -2,7 +2,7 @@
 
 var args        = process.argv.splice(2)
   , colors      = require('colors')
-  , controllers = require('../lib')()
+  , pulse       = require('../lib')()
   , Q           = require('q');
 
 colors.setTheme({
@@ -21,9 +21,9 @@ if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
   return process.exit(0);
 }
 
-Q.nfcall(controllers.npm.getModule, args[0])
+Q.nfcall(pulse.npm.getModule, args[0])
   .then(function(moduleMeta) {
-    return Q.nfcall(controllers.gitHub.getRepo, moduleMeta);
+    return Q.nfcall(pulse.gitHub.getRepo, moduleMeta);
   })
   .then(function(projectData) {
 
@@ -45,7 +45,7 @@ Q.nfcall(controllers.npm.getModule, args[0])
     console.log();
   })
   .fail(function(err) {
-    console.error(err);
+    console.error(err.message);
     process.exit(1);
   })
   .done();

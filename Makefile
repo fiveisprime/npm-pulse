@@ -1,6 +1,7 @@
-SRC = $(wildcard controllers/*.js) $(wildcard api/api/**/*.js) api/app.js
+SRC = $(wildcard controllers/*.js) $(wildcard site/api/controllers/*.js) \
+	site/app.js
 
 lint: $(SRC)
-	@node node_modules/.bin/jshint $^ \
+	@node_modules/.bin/jshint $^ \
 	--verbose \
 	--show-non-errors

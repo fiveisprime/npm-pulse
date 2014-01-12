@@ -1,14 +1,14 @@
-var controllers = require('./../../../lib')()
-  , Q           = require('q');
+var pulse = require('./../../../lib')()
+  , Q     = require('q');
 
 module.exports = {
 
   get: function(req, res) {
     var projectName = req.param('projectName');
 
-    Q.nfcall(controllers.npm.getModule, projectName)
+    Q.nfcall(pulse.npm.getModule, projectName)
     .then(function(moduleMeta) {
-      return Q.nfcall(controllers.gitHub.getRepo, moduleMeta);
+      return Q.nfcall(pulse.gitHub.getRepo, moduleMeta);
     })
     .then(function(projectData) {
       res.json(projectData);
