@@ -10,10 +10,15 @@ colors.setTheme({
   warning: 'red',
 });
 
-
-if (args.length === 0) {
-  console.log('You must specify a module to look up.');
-  return process.exit(1);
+if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
+  console.log();
+  console.log('  Usage: pulse [module] [options]');
+  console.log();
+  console.log('  Options:');
+  console.log();
+  console.log('    -h, --help\t\toutput usage information');
+  console.log();
+  return process.exit(0);
 }
 
 Q.nfcall(controllers.npm.getModule, args[0])
