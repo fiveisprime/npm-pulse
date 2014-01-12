@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fiveisprime/applejacks"
+    "url": "git://github.com/fiveisprime/applejacks"
   },
   "dependencies": {
     "request": "~2.27.0",
