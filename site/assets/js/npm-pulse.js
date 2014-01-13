@@ -28,7 +28,7 @@ var npmPulse = angular.module('npm-pulse', ['downloadFilters','ngRoute']).
         } else {
           // TODO: show the error.
           console.log(response);
-          window.alert('Project Not Found');
+          window.alert(response.message || 'Module not found.');
         }
 
       });
