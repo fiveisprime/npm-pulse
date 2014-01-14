@@ -36,7 +36,8 @@ Q.nfcall(pulse.npm.getModule, args[0])
 
     if (args.length === 2 && args[1] === '--raw' || args[1] === '-r') {
       //
-      // Remove the larger data objects so the output is readable.
+      // Remove the larger data objects so the output is readable. This also
+      //    hides some data from GitHub that should be visible.
       //
       delete moduleData.contributors;
       delete moduleData.commits;

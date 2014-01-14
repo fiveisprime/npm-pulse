@@ -9,8 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/fiveisprime/applejacks"
+    "url": "https://github.com/fiveisprime/applejacks.git"
   },
+  "maintainers": [
+     "Charlie Key <ckey@paranoidferret.com>",
+     "Matt Hernandez <matt@modulus.io>",
+     "Taron Foxworth <taron@modulus.io>"
+   ],
   "dependencies": {
     "request": "~2.27.0",
     "q": "~0.9.7",
@@ -24,6 +29,15 @@
     "colors": "~0.6.2",
     "prettyjson": "~0.10.0"
   },
+  "keywords": [
+    "npm",
+    "pulse"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fiveisprime/applejacks/issues"
+  },
+  "homepage": "https://github.com/fiveisprime/applejacks",
   "engines": {
     "node": "0.10.x"
   },
