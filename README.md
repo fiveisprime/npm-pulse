@@ -4,6 +4,8 @@ npm pulse
 Check the pulse of a node module. Uses data from both npm and GitHub to check
 the health and rate modules.
 
+![Demo](images/demo.gif)
+
 # License
 
 The MIT License (MIT)
