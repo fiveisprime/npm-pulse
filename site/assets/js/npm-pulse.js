@@ -23,12 +23,12 @@ var npmPulse = angular.module('npm-pulse', ['downloadFilters','ngRoute']).
             , index     = response.downloadsMonth.rows.length - 1;
 
           // Set the downloads count for the current month.
-          response.downloadsCurrent = downloads[index].value;
+          response.downloadsCurrent = downloads.length > 0 ? downloads[index].value : 0;
           deferred.resolve(response);
         } else {
           // TODO: show the error.
           console.log(response);
-          window.alert(response.message || 'Module not found.');
+          window.alert(response.error || 'Module not found.');
         }
 
       });

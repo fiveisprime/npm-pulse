@@ -15,7 +15,7 @@ module.exports = {
     })
     .fail(function(err) {
       console.error(err);
-      res.json({ fail: true, error: err });
+      res.json({ fail: true, error: err.message });
     })
     .done();
   }
