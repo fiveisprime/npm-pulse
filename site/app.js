@@ -1,9 +1,7 @@
-var express = require('express');
-var fs = require('fs');
-var engine = require('ejs-locals');
-var app = express();
-
-var pulse = require('./../lib')(),
+var express = require('express'),
+  engine = require('ejs-locals'),
+  app = express(),
+  pulse = require('./../lib')(),
   Q = require('q');
 
 app.engine('ejs', engine);
@@ -12,7 +10,7 @@ app.set('view engine', 'ejs');
 
 app.use('/public', express.static(__dirname + '/public'));
 
-app.use('/public', function(req, res, next) {
+app.use('/public', function(req, res) {
   res.send(404);
 });
 
@@ -42,7 +40,7 @@ app.get('/api/:projectName', function(req, res) {
     .done();
 });
 
-app.all('/*', function(req, res, next) {
+app.all('/*', function(req, res) {
   res.render('home/index.ejs');
 });
 
