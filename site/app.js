@@ -1,6 +1,50 @@
-var path = require('path')
-  , args = require('optimist').argv;
+var express = require('express');
+var fs = require('fs');
+var engine = require('ejs-locals');
+var app = express();
 
-args.appPath = path.resolve(__dirname);
+var pulse = require('./../lib')(),
+  Q = require('q');
 
-require('sails').lift(args);
+app.engine('ejs', engine);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+app.use('/public', express.static(__dirname + '/public'));
+
+app.use('/public', function(req, res, next) {
+  res.send(404);
+});
+
+
+app.locals({
+  title: 'Npm Pulse'
+});
+
+
+app.get('/api/:projectName', function(req, res) {
+  var projectName = req.param('projectName');
+
+  Q.nfcall(pulse.npm.getModule, projectName)
+    .then(function(moduleMeta) {
+      return Q.nfcall(pulse.gitHub.getRepo, moduleMeta);
+    })
+    .then(function(projectData) {
+      res.json(projectData);
+    })
+    .fail(function(err) {
+      console.error(err);
+      res.json({
+        fail: true,
+        error: err.message
+      });
+    })
+    .done();
+});
+
+app.all('/*', function(req, res, next) {
+  res.render('home/index.ejs');
+});
+
+app.listen(3000);
+console.log('app is listening at localhost:3000');

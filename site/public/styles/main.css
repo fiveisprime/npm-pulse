@@ -1,17 +1,12 @@
-@primaryColor   : #34495E;
-@linkColor      : #008080;
-@linkHoverColor : darken(@linkColor, 10%);
-
 body,
 html {
   font-family: "Lato", Helvetica, Arial, sans-serif;
   font-size: 18px;
   line-height: 1.72222;
-  color: @primaryColor;
+  color: #34495e;
   background-color: #ffffff;
   height: 100%;
 }
-
 h1,
 h2,
 h3,
@@ -24,149 +19,127 @@ h6 {
   color: inherit;
   text-transform: capitalize;
 }
-
 p {
   margin: 0;
   padding: 0;
 }
-
 a.name {
-  color: @primaryColor !important;
+  color: #34495e !important;
 }
-
 a {
-  color: @linkColor;
+  color: #008080;
   text-decoration: none;
-  &:visited {
-    color: @linkColor;
-    text-decoration: underline;
-    outline: 0;
-  }
-  &:hover { color: @linkHoverColor; }
-  &:focus { color: @linkHoverColor; }
 }
-
+a:visited {
+  color: #008080;
+  text-decoration: underline;
+  outline: 0;
+}
+a:hover {
+  color: #004d4d;
+}
+a:focus {
+  color: #004d4d;
+}
 hr {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
   border-top: 1px solid #eee;
 }
-
 .centered {
   text-align: center;
 }
-
 button {
-  background: @primaryColor;
+  background: #34495e;
   border: none;
   color: white;
   font-weight: bold;
   height: 50px;
   padding: 0 20px;
 }
-
 input[type="text"] {
   height: 44px;
   box-shadow: none;
   border: 1px #eee solid;
   padding-left: 10px;
 }
-
 .container {
   position: relative;
   width: 960px;
   margin: 0 auto;
 }
-
 .caps {
   text-transform: uppercase;
 }
-
 .contributor {
   text-align: center;
   margin-bottom: 10px;
-  img {
-    max-width: 40px
-  }
-  p {
-    font-size: 12px;
-  }
 }
-
+.contributor img {
+  max-width: 40px;
+}
+.contributor p {
+  font-size: 12px;
+}
 .contributor-vis {
   height: 300px;
   margin: 0;
 }
-
 header {
   text-align: center;
-  .title a {
-    color: @primaryColor;
-    text-decoration: none;
-  }
 }
-
+header .title a {
+  color: #34495e;
+  text-decoration: none;
+}
 #content {
-  margin-bottom:20px;
-  .search {
-    text-align: center;
-  }
+  margin-bottom: 20px;
 }
-
+#content .search {
+  text-align: center;
+}
 footer {
   bottom: 45px;
 }
-
 .right-aligned {
-  text-align: right
+  text-align: right;
 }
-
 .good {
   color: green;
 }
-
 .warning {
   color: yellow;
 }
-
 .background-row {
-  position : absolute;
-  width : 100%;
+  position: absolute;
+  width: 100%;
   opacity: .3;
   pointer-events: none;
 }
-
-.project {
-  .project-meta {
-    text-align: right;
-  }
-  .project-github-data {
-    margin-top: 22px;
-    text-align:right;
-    .project-icon {
-      margin: 0 10px;
-      i {
-        margin-left: 4px;
-      }
-    }
-  }
+.project .project-meta {
+  text-align: right;
 }
-
+.project .project-github-data {
+  margin-top: 22px;
+  text-align: right;
+}
+.project .project-github-data .project-icon {
+  margin: 0 10px;
+}
+.project .project-github-data .project-icon i {
+  margin-left: 4px;
+}
 #version-list {
   width: 38px;
   margin: auto;
 }
-
-// Loading spinner
-// ===============
 #spinner {
   position: relative;
   width: 128px;
   height: 128px;
-  margin: 0 auto
+  margin: 0 auto;
 }
-
 .spinner {
   position: absolute;
   background-color: #008080;
@@ -198,7 +171,6 @@ footer {
   animation-iteration-count: infinite;
   animation-direction: linear;
 }
-
 #spinner_1 {
   left: 0;
   top: 50px;
@@ -208,7 +180,6 @@ footer {
   -o-animation-delay: 0.39s;
   animation-delay: 0.39s;
 }
-
 #spinner_2 {
   left: 14px;
   top: 14px;
@@ -218,7 +189,6 @@ footer {
   -o-animation-delay: 0.52s;
   animation-delay: 0.52s;
 }
-
 #spinner_3 {
   top: 0;
   left: 50px;
@@ -228,7 +198,6 @@ footer {
   -o-animation-delay: 0.65s;
   animation-delay: 0.65s;
 }
-
 #spinner_4 {
   right: 14px;
   top: 14px;
@@ -238,7 +207,6 @@ footer {
   -o-animation-delay: 0.78s;
   animation-delay: 0.78s;
 }
-
 #spinner_5 {
   right: 0;
   top: 50px;
@@ -248,7 +216,6 @@ footer {
   -o-animation-delay: 0.91s;
   animation-delay: 0.91s;
 }
-
 #spinner_6 {
   right: 14px;
   bottom: 14px;
@@ -258,7 +225,6 @@ footer {
   -o-animation-delay: 1.04s;
   animation-delay: 1.04s;
 }
-
 #spinner_7 {
   left: 50px;
   bottom: 0;
@@ -268,7 +234,6 @@ footer {
   -o-animation-delay: 1.17s;
   animation-delay: 1.17s;
 }
-
 #spinner_8 {
   left: 14px;
   bottom: 14px;
@@ -278,53 +243,43 @@ footer {
   -o-animation-delay: 1.3s;
   animation-delay: 1.3s;
 }
-
 @-moz-keyframes bounce_spinner {
   0% {
-    -moz-transform: scale(1)
+    -moz-transform: scale(1);
   }
-
   100% {
-    -moz-transform: scale(.3)
+    -moz-transform: scale(0.3);
   }
 }
-
 @-webkit-keyframes bounce_spinner {
   0% {
-    -webkit-transform: scale(1)
+    -webkit-transform: scale(1);
   }
-
   100% {
-    -webkit-transform: scale(.3)
+    -webkit-transform: scale(0.3);
   }
 }
-
 @-ms-keyframes bounce_spinner {
   0% {
-    -ms-transform: scale(1)
+    -ms-transform: scale(1);
   }
-
   100% {
-    -ms-transform: scale(.3)
+    -ms-transform: scale(0.3);
   }
 }
-
 @-o-keyframes bounce_spinner {
   0% {
-    -o-transform: scale(1)
+    -o-transform: scale(1);
   }
-
   100% {
-    -o-transform: scale(.3)
+    -o-transform: scale(0.3);
   }
 }
-
 @keyframes bounce_spinner {
   0% {
-    transform: scale(1)
+    transform: scale(1);
   }
-
   100% {
-    transform: scale(.3)
+    transform: scale(0.3);
   }
 }
