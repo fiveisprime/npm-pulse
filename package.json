@@ -1,7 +1,7 @@
 {
   "name": "npm-pulse",
   "mod-project-name": "npm-pulse",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Check the pulse of node modules from the terminal.",
   "main": "site/app.js",
   "scripts": {
@@ -19,9 +19,6 @@
   "dependencies": {
     "request": "~2.27.0",
     "q": "~0.9.7",
-    "grunt": "0.4.1",
-    "ejs": "~0.8.4",
-    "optimist": "0.3.4",
     "moment": "~2.4.0",
     "npm-registry-client": "~0.2.30",
     "colors": "~0.6.2",
