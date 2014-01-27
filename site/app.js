@@ -1,24 +1,21 @@
 var express = require('express'),
-  engine = require('ejs-locals'),
-  app = express(),
-  pulse = require('./../lib')(),
-  Q = require('q');
+  pulse     = require('./../lib')(),
+  path      = require('path'),
+  http      = require('http'),
+  app       = express(),
+  Q         = require('q');
 
-app.engine('ejs', engine);
-app.set('views', __dirname + '/views');
+app.disable('x-powered-by');
+
+app.set('port', process.env.PORT || 3000);
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use('/public', express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/public', function(req, res) {
-  res.send(404);
+app.configure('development', function() {
+  app.use(express.errorHandler());
 });
-
-
-app.locals({
-  title: 'Npm Pulse'
-});
-
 
 app.get('/api/:projectName', function(req, res) {
   var projectName = req.param('projectName');
@@ -40,9 +37,12 @@ app.get('/api/:projectName', function(req, res) {
     .done();
 });
 
-app.all('/*', function(req, res) {
-  res.render('home/index.ejs');
+app.get('/', function(req, res) {
+  res.render('index');
 });
 
-app.listen(process.env.PORT || 3000);
-console.log('app is listening at localhost:3000');
+app.all('/*', function(req, res) {
+  res.redirect('/');
+});
+
+http.createServer(app).listen(app.get('port'));

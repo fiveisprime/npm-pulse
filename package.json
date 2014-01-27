@@ -24,8 +24,8 @@
     "colors": "~0.6.2",
     "prettyjson": "~0.10.0",
     "express": "~3.4.8",
-    "ejs-locals": "~1.0.2",
-    "tinycache": "~0.1.1"
+    "tinycache": "~0.1.1",
+    "ejs": "~0.8.5"
   },
   "keywords": [
     "npm",

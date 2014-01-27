@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>npm pulse</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/grid.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/nv.d3.min.css">
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+    <meta name="application-name" content="npm pulse"/>
+    <meta name="msapplication-TileColor" content="#2A3A4B"/>
+    <meta name="msapplication-TileImage" content="images/winows-8-start-screen-icon.png"/>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <header>
+        <h1 class="title"><a href="/#/">Npm Pulse</a></h1>
+      </header>
+
+      <section id="content">
+        <div ng-app="npm-pulse">
+          <div ng-view></div>
+        </div>
+      </section>
+    </div>
+
+    <script type="text/javascript" src="js/d3.v3.js"></script>
+    <script type="text/javascript" src="js/nv.d3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.min.js"></script>
+    <script type="text/javascript" src="js/npm-pulse.js">
+
+    </script>
+
+    </body>
+</html>

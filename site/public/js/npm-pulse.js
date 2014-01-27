@@ -21,8 +21,11 @@ factory('Projects', function($q, $timeout, $http) {
     success(function(response, status, headers, config) {
       document.querySelector('#spinner').style.display = 'none';
 
-      var downloads = response.downloadsMonth.rows,
+      if (response.fail) {
+        return window.alert(response.error || 'Module not found.');
+      }
 
+      var downloads = response.downloadsMonth.rows,
         index = response.downloadsMonth.rows.length - 1;
 
       // Set the downloads count for the current month.
@@ -30,10 +33,8 @@ factory('Projects', function($q, $timeout, $http) {
       deferred.resolve(response);
     }).
     error(function(response, status, headers, config) {
-
       document.querySelector('#spinner').style.display = 'none';
-      console.log(response);
-      window.alert(response.error || 'Module not found.');
+      window.alert('Something went wrong.');
     });
 
     return deferred.promise;
@@ -47,11 +48,11 @@ factory('Projects', function($q, $timeout, $http) {
     $routeProvider.
     when('/', {
       controller: IndexCtrl,
-      templateUrl: '/public/templates/index.html'
+      templateUrl: '/templates/index.html'
     }).
     when('/:projectName', {
       controller: ProjectCtrl,
-      templateUrl: '/public/templates/project.html'
+      templateUrl: '/templates/project.html'
     }).
     otherwise({
       redirectTo: '/'
