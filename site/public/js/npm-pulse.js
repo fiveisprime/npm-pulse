@@ -8,57 +8,6 @@ angular.module('downloadFilters', []).filter('valueTotal', function() {
   };
 });
 
-var npmPulse = angular.module('npm-pulse', ['downloadFilters', 'ngRoute']).
-factory('Projects', function($q, $timeout, $http) {
-  var getProject = function(projectName) {
-
-    var deferred = $q.defer();
-
-    $http({
-      method: 'GET',
-      url: '/api/' + projectName
-    }).
-    success(function(response, status, headers, config) {
-      document.querySelector('#spinner').style.display = 'none';
-
-      if (response.fail) {
-        return window.alert(response.error || 'Module not found.');
-      }
-
-      var downloads = response.downloadsMonth.rows,
-        index = response.downloadsMonth.rows.length - 1;
-
-      // Set the downloads count for the current month.
-      response.downloadsCurrent = downloads.length > 0 ? downloads[index].value : 0;
-      deferred.resolve(response);
-    }).
-    error(function(response, status, headers, config) {
-      document.querySelector('#spinner').style.display = 'none';
-      window.alert('Something went wrong.');
-    });
-
-    return deferred.promise;
-  };
-  return {
-    getProject: getProject
-  };
-
-})
-  .config(function($routeProvider, $locationProvider) {
-    $routeProvider.
-    when('/', {
-      controller: IndexCtrl,
-      templateUrl: '/templates/index.html'
-    }).
-    when('/:projectName', {
-      controller: ProjectCtrl,
-      templateUrl: '/templates/project.html'
-    }).
-    otherwise({
-      redirectTo: '/'
-    });
-  });
-
 function IndexCtrl($scope, $location) {
   $scope.getProject = function() {
     if ($scope.projectName) {
@@ -66,7 +15,6 @@ function IndexCtrl($scope, $location) {
     }
   };
 }
-
 
 function ProjectCtrl($scope, $location, $routeParams, Projects) {
 
@@ -81,7 +29,58 @@ function ProjectCtrl($scope, $location, $routeParams, Projects) {
       $location.path('/' + $scope.projectName);
     }
   };
-};
+}
+
+var npmPulse = angular.module('npm-pulse', ['downloadFilters', 'ngRoute']).
+factory('Projects', function($q, $timeout, $http) {
+  var getProject = function(projectName) {
+
+    var deferred = $q.defer();
+
+    $http({
+      method: 'GET',
+      url: '/api/' + projectName
+    }).
+    success(function(response) {
+      document.querySelector('#spinner').style.display = 'none';
+
+      if (response.fail) {
+        return window.alert(response.error || 'Module not found.');
+      }
+
+      var downloads = response.downloadsMonth.rows,
+        index = response.downloadsMonth.rows.length - 1;
+
+      // Set the downloads count for the current month.
+      response.downloadsCurrent = downloads.length > 0 ? downloads[index].value : 0;
+      deferred.resolve(response);
+    }).
+    error(function() {
+      document.querySelector('#spinner').style.display = 'none';
+      window.alert('Something went wrong.');
+    });
+
+    return deferred.promise;
+  };
+  return {
+    getProject: getProject
+  };
+
+})
+  .config(function($routeProvider) {
+    $routeProvider.
+    when('/', {
+      controller: IndexCtrl,
+      templateUrl: '/templates/index.html'
+    }).
+    when('/:projectName', {
+      controller: ProjectCtrl,
+      templateUrl: '/templates/project.html'
+    }).
+    otherwise({
+      redirectTo: '/'
+    });
+  });
 
 var offsetDate = function(dateStr) {
   var _date = new Date(dateStr);
@@ -97,10 +96,10 @@ npmPulse.directive('moduleDownloadVis', function() {
     scope: {
       val: '='
     },
-    link: function(scope, element, attrs) {
-      var vis = d3.select(element[0]).append('svg');
+    link: function(scope, element) {
+      d3.select(element[0]).append('svg');
 
-      scope.$watch('val', function(newVal, oldVal) {
+      scope.$watch('val', function(newVal) {
 
         if (!newVal) {
           return;
@@ -114,18 +113,17 @@ npmPulse.directive('moduleDownloadVis', function() {
           opts.margin = {
             left: 10,
             bottom: 0,
-            right: 10,
-            bottom: 0
+            right: 10
           };
           opts.showXAxis = false;
           opts.showYAxis = false;
           opts.showLegend = false;
           opts.interactive = false;
 
-          opts.x = function(d, i) {
+          opts.x = function(d) {
             return offsetDate(d.key[1]);
           };
-          opts.y = function(d, i) {
+          opts.y = function(d) {
             return d.value;
           };
 
@@ -161,10 +159,10 @@ npmPulse.directive('moduleContributorsVis', function() {
     scope: {
       val: '='
     },
-    link: function(scope, element, attrs) {
-      var vis = d3.select(element[0]).append('svg');
+    link: function(scope, element) {
+      d3.select(element[0]).append('svg');
 
-      scope.$watch('val', function(newVal, oldVal) {
+      scope.$watch('val', function(newVal) {
 
         if (!newVal) {
           return;
@@ -184,10 +182,10 @@ npmPulse.directive('moduleContributorsVis', function() {
             right: 0
           };
 
-          opts.x = function(d, i) {
+          opts.x = function(d) {
             return d.author.login;
           };
-          opts.y = function(d, i) {
+          opts.y = function(d) {
             return d.total;
           };
 
@@ -201,9 +199,9 @@ npmPulse.directive('moduleContributorsVis', function() {
 
           chart.donut(true);
 
-          chart.tooltipContent(function(key, value, e, graph) {
+          chart.tooltipContent(function(key, value) {
             return '<h3>' + key + '</h3>' +
-              '<p>' + Math.round(value) + ' commits </p>'
+              '<p>' + Math.round(value) + ' commits </p>';
           });
 
           d3.select(element[0]).select('svg')

@@ -48,15 +48,16 @@
   "validthis"     : false,
 
   "node"          : true,
+  "browser"       : true,
 
   "globals"       : {
     "afterEach"   : false,
     "beforeEach"  : false,
     "describe"    : false,
     "expect"      : false,
+    "angular"     : false,
     "it"          : false,
-    "spyOn"       : false,
-    "xit"         : false,
-    "xdescribe"   : false
+    "d3"          : false,
+    "nv"          : false
   }
 }

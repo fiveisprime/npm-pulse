@@ -5,7 +5,8 @@
   "description": "Check the pulse of node modules from the terminal.",
   "main": "site/app.js",
   "scripts": {
-    "start": "node site/app.js"
+    "start": "node site/app.js",
+    "test": "make lint"
   },
   "repository": {
     "type": "git",
