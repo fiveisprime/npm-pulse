@@ -38,7 +38,7 @@ app.get('/api/:projectName', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-  res.sendfile('./site/views/index.html');
+  res.sendfile(path.join(__dirname, '/views/index.html'));
 });
 
 app.all('/*', function(req, res) {
