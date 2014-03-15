@@ -2,7 +2,7 @@ angular.module('downloadFilters', []).filter('valueTotal', function() {
   return function(input) {
     var total = 0;
     for (var i = 0; i < input.length; i++) {
-      total += input[i].value;
+      total += input[i].downloads;
     }
     return total;
   };
@@ -48,11 +48,11 @@ factory('Projects', function($q, $timeout, $http) {
         return window.alert(response.error || 'Module not found.');
       }
 
-      var downloads = response.downloadsMonth.rows,
-        index = response.downloadsMonth.rows.length - 1;
+      var downloads = response.downloadsMonth,
+        index = response.downloadsMonth.length - 1;
 
       // Set the downloads count for the current month.
-      response.downloadsCurrent = downloads.length > 0 ? downloads[index].value : 0;
+      response.downloadsCurrent = downloads.length > 0 ? downloads[index].downloads : 0;
       deferred.resolve(response);
     }).
     error(function() {
@@ -121,10 +121,10 @@ npmPulse.directive('moduleDownloadVis', function() {
           opts.interactive = false;
 
           opts.x = function(d) {
-            return offsetDate(d.key[1]);
+            return offsetDate(d.day);
           };
           opts.y = function(d) {
-            return d.value;
+            return d.downloads;
           };
 
           opts.isArea = true;
@@ -133,7 +133,7 @@ npmPulse.directive('moduleDownloadVis', function() {
 
           var data = {
             key: 'Downloads',
-            values: project.downloadsMonth.rows,
+            values: project.downloadsMonth,
             color: '#008080'
           };
 
