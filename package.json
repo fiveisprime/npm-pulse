@@ -1,7 +1,7 @@
 {
   "name": "npm-pulse",
   "mod-project-name": "npm-pulse",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Check the pulse of node modules from the terminal.",
   "main": "site/app.js",
   "scripts": {
@@ -18,14 +18,14 @@
     "Taron Foxworth <taron@modulus.io>"
   ],
   "dependencies": {
-    "request": "~2.27.0",
-    "q": "~0.9.7",
-    "moment": "~2.4.0",
-    "npm-registry-client": "~0.2.30",
-    "colors": "~0.6.2",
-    "prettyjson": "~0.10.0",
-    "express": "~3.4.8",
-    "tinycache": "~0.1.1"
+    "request": "^2.27.0",
+    "q": "^1.0.1",
+    "moment": "^2.4.0",
+    "npm-registry-client": "^0.4.5",
+    "colors": "^0.6.2",
+    "prettyjson": "^0.13.0",
+    "express": "3.4.8",
+    "tinycache": "^0.1.1"
   },
   "keywords": [
     "npm",
@@ -43,6 +43,6 @@
     "pulse": "./bin/pulse"
   },
   "devDependencies": {
-    "jshint": "~2.3.0"
+    "jshint": "^2.3.0"
   }
 }
