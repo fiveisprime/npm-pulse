@@ -10,7 +10,7 @@ the health and rate modules.
 
 The MIT License (MIT)
 
-Copyright (c) 2013 Matt Hernandez, Charlie Key, and Taron Foxworth
+Copyright (c) 2014 Matt Hernandez, Charlie Key, and Taron Foxworth
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
